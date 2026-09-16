@@ -29,7 +29,7 @@ This file is a living record; `ADMISSION.md` carries the verdict.
 
 ## State
 
-`ARCHIVED` as of 2026-09-16; admission pending the public-site listing. Advance only `DRAFT -> CANDIDATE -> TAGGED -> ARCHIVED -> ADMITTED`.
+`ADMITTED` verdict recorded 2026-09-16; publication of the verdict gated on the public-site listing. Advance only `DRAFT -> CANDIDATE -> TAGGED -> ARCHIVED -> ADMITTED`.
 
 ## Gates
 

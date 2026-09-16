@@ -173,5 +173,5 @@ Findings were integrated by the root agent; no auditor edited the tree.
 
 ## Open audits
 
-- Public-site listing and its deployed-HTML check.
-- Final clean admitted-state audit and publication of the living metadata.
+- Public-site listing and its deployed-HTML check, then the admitted-state
+  audit on the clean committed tree and publication of the living metadata.
