@@ -61,3 +61,8 @@ This file records every public version. No public version exists yet.
   audit to carry a stale `MANIFEST.sha256` and was likewise retracted before
   any publication and recreated at the corrected commit. No public tag has
   ever been moved.
+- 2026-09-15: Before publication, the README's mathematics was converted from
+  ASCII to rendered LaTeX. The tag `v0.1.0` at
+  `8e22b2b3609e123c0395711b5b35199febafc536` remains on the private
+  repository and will be retracted and recreated once prepublication review
+  is finished.
