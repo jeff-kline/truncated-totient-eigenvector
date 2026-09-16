@@ -1,0 +1,878 @@
+\documentclass[12pt,reqno]{article}
+
+\usepackage[usenames]{color}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amscd}
+\usepackage{graphicx}
+
+\usepackage[colorlinks=true,
+linkcolor=webgreen,
+filecolor=webbrown,
+citecolor=webgreen]{hyperref}
+
+\definecolor{webgreen}{rgb}{0,.5,0}
+\definecolor{webbrown}{rgb}{.6,0,0}
+
+\usepackage{color}
+\usepackage{fullpage}
+\usepackage{float}
+
+\usepackage{psfig}
+\usepackage{graphics}
+\usepackage{latexsym}
+\usepackage{epsf}
+\usepackage{breakurl}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{.1in}
+\setlength{\evensidemargin}{.1in}
+\setlength{\topmargin}{-.1in}
+\setlength{\textheight}{8.4in}
+
+\newcommand{\seqnum}[1]{\href{https://oeis.org/#1}{\rm \underline{#1}}}
+
+\usepackage{mathtools}
+\usepackage{booktabs}
+
+\newcommand{\abs}[1]{\ensuremath{\left|{#1}\right|}}
+\newcommand\floor[1]{\left\lfloor#1\right\rfloor}
+\newcommand\pbrace[1]{\left\{#1\right\}}
+\newcommand{\paren}[1]{\left\lparen{#1}\right\rparen}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\vv}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\norm}[1]{\ensuremath{\left\|{#1}\right\|}}
+\newcommand{\set}[1]{\ensuremath{\left\{{#1}\right\}}}
+
+\newlength{\minuslength}
+\settowidth{\minuslength}{$-$}
+\newcommand{\hm}{\ensuremath{\hspace{\minuslength}}}
+
+\def\modd#1 #2{#1\ {\rm (mod}\ #2{\rm )}}
+
+\begin{document}
+
+\begin{center}
+\epsfxsize=4in
+\leavevmode\epsffile{logo129.eps}
+\end{center}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{center}
+\vskip 1cm{\LARGE\bf 
+Unital Sums of the M\"{o}bius \\
+\vskip .1in
+and Mertens Functions
+}
+\vskip 1cm
+\large
+Jeffery Kline\\
+Madison, WI 53711\\
+USA\\
+\href{mailto:jeffery.kline@gmail.com}{\tt jeffery.kline@gmail.com}
+\end{center}
+
+\vskip .2 in
+
+\begin{abstract}
+We use standard techniques of linear algebra to construct an infinite 
+family of identities that involve finite weighted sums of the 
+M\"{o}bius and Mertens functions, where the weights are equal 
+to $-1$, $0$, or $1$.
+In a related manner, we construct, for each positive integer $n$, 
+an $n\times n$ symmetric unimodular matrix, and each matrix is used to 
+express an identity that involves a finite weighted sum of 
+the M\"{o}bius function.  We establish several results on the spectral 
+decomposition of these matrices.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+The M\"{o}bius function is defined as
+\begin{align*}
+\mu(k)\coloneqq \begin{cases}
+\phantom{-}1, & \text{if $k$ is squarefree and has an even number of prime factors;} \\
+-1,           & \text{if $k$ is squarefree and has an odd number of prime factors;} \\
+\phantom{-}0, & \text{otherwise.}
+\end{cases}
+\end{align*}
+Summatory behavior of $\mu$ is of great interest, in part due to the close connection that $\mu$ has to the
+distribution of the prime numbers. Indeed, it is known that the Mertens function, which we write as $M(n)\coloneqq\sum_{k\leq n}\mu(k)$, 
+satisfies $M(n)=o(n)$, and that this asymptotic bound is equivalent to the
+prime number theorem. 
+
+It is the goal of the first part of this paper to state and prove several summatory identities satisfied by $\mu$ and $M$ that
+we have not found in prior work. These identities are stated in Proposition~\ref{prp:main} and
+Corollary~\ref{cor:main} of Section~\ref{sec:main}. In Section~\ref{sec:qn}, we employ similar techniques to construct, for 
+each positive integer $n$, an $n\times n$ symmetric matrix, $Q_n$, having integer entries and determinant 1 that 
+satisfies $\sum_{k\leq n} Q_{n}(j,k)\mu(k) = 0$ when $j>1$, and the sum equals~1 when $j=1$.
+This is the content of Proposition~\ref{prp:qn}.  We also obtain asymptotic bounds on the extremal eigenvalues of $Q_n$.
+This is the content of Proposition~\ref{prp:lambdanbound}. A corollary of these propositions
+is the asymptotic bound $\sum_{i\leq n} v_n(i)\mu(i)\leq n^{-3/2}C(1+o(1))$, where 
+$v_n$ is the normalized dominant eigenvector of $Q_n$, and $C$ is a constant smaller than 3.  
+This is stated in Corollary~\ref{cor:mun}.  We conclude with a conjecture about $v_n$.
+
+We now briefly summarize Proposition~\ref{prp:main} and Corollary~\ref{cor:main} of the next section. For each $m,n\geq 1$, we construct $(-1,0,1)$-valued functions, 
+$\epsilon^{m,n}$ and $E^{m,n}$, that satisfy the identities
+\begin{align*}
+\sum_{k\leq n} \epsilon^{m,n}(k)\mu(k)=1
+\end{align*}
+and
+\begin{align*}
+\sum_{k\leq n} E^{m,n}(k)M(k)=1.
+\end{align*}
+Each function $\epsilon^{m,n}$ is the result of applying the transpose of Dirichlet convolution by the $n$-term 
+sequence $(1,1,1,\ldots,1)$ to a particular $4m$-periodic function.
+Each function $E^{m,n}$ is a finite difference operation applied to $\epsilon^{m,n}$. Complete details are presented in Section~\ref{sec:main}.
+Before proceeding, we state a concise formula for 
+$\epsilon^{m,n}$ in the special case $m=1$. For all $k\geq 1$,
+\begin{align}
+\epsilon^{1,n}(k) = \sum_{ j k\leq n} \cos\paren{\frac{\pi (jk-1)}{2}}.
+\label{eqn:cos}
+\end{align}
+See Section~\ref{subsec:cos} for further observations concerning the function $\epsilon^{1,n}$.
+
+\begin{figure*}[ht]
+\begin{center}
+\includegraphics[width=0.85\textwidth]{imgexmaple}
+\end{center}
+\caption{Examples of the function $\epsilon^{m,n}$.}
+\label{fig:main}
+\end{figure*}
+Figure~\ref{fig:main} displays $\epsilon^{m,n}$ for various choices of $m$ and~$n$. 
+Both $E^{m,n}$ and $\epsilon^{m,n}$ are $4m$-periodic on the interval $n/3<k\leq n$.
+The behavior of $E^{m,n}$ and $\epsilon^{m,n}$ near the origin is 
+more complicated.   In general, $\epsilon^{m,n}$ and $E^{m,n}$ are sparse when $m$ is large.
+
+The body of literature on the functions $\mu$ and $M$ is vast, 
+and many results on sums with the form 
+\begin{align*}\sum_{k\leq n}w(k)\mu(k),\end{align*}
+are known. Two well-known examples, both of which may be found in Apostol (\cite[Theorem 2.1 and Theorem 3.12]{apostol1998introduction}), are
+\begin{align}
+\sum_{k|n}\mu(k)=\begin{cases} 1, &\text{if $n=1$;}\\
+0, & \text{otherwise,}
+\end{cases}
+\label{eqn:delta}
+\end{align}
+and 
+\begin{align}
+\sum_{k\leq n}\floor{\frac{n}{k}} \mu(k)=1.
+\label{eqn:sumdelta}
+\end{align}
+This pair of identities is closely related to Proposition~\ref{prp:qn} of Section~\ref{sec:qn}.
+The Mertens function is also known to satisfy similar kinds of identities. One example is
+\begin{align*}
+\sum_{k\leq n} M\paren{\frac{n}{k}} &= 1. 
+\end{align*}
+Lehman \cite{lehman1960liouville}, Del{\'e}glise and Rivat \cite{deleglise1996computing} and Benito and Varona  \cite{benito2008recursive} have all leveraged 
+this and similar identities to find efficient recursive methods of evaluating $M$ and related functions at large values.
+We state a similar identity in Section~\ref{subsec:bv}.
+
+\section{The functions  \texorpdfstring{$\epsilon^{m,n}$}{epsilon {m,n}} and \texorpdfstring{$E^{m,n}$}{E {m,n}}}
+\subsection{Notation, statements of the main results, and proofs}
+\label{sec:main}
+
+The greatest common divisor of positive integers $a,b\in\N$ is written $(a,b)$.
+Let $D$ be the matrix
+\begin{align*}
+D({i,j}) \coloneqq \begin{cases} 1, & \text{if $j|i$;}\\
+0, & \text{otherwise.}
+\end{cases}
+\end{align*}
+The action of this matrix on vectors corresponds to Dirichlet convolution by $\vv{1}\coloneqq (1,1,1,\ldots)$.
+In matrix notation, where the functions $\mu$ and $\delta \coloneqq \paren{1,0,0,0,\ldots}$ are treated as a column vectors, 
+and $*$ denotes Dirichlet convolution,
+\begin{align}\vv{1}*\mu  = \paren{ \sum_{d|k} \mu(d) : k\geq 1 } = D\mu= \delta.\label{eqn:dirinv}\end{align}
+We adopt the convention that the smallest index of sequences, vectors and matrices is $1$, and not $0$. Thus, 
+the leading entry of $\delta$ is $\delta(1)=1$. 
+Let $\delta_m$ be the column vector consisting of the 
+$m$ leading terms of $\delta$ and let 
+\begin{align}c^{m}\coloneqq (\delta_{2m}, -\delta_{2m}, \delta_{2m},-\delta_{2m},\ldots).\label{def:cm}\end{align}
+Then $c^{m}$ is supported on integers $k\equiv \modd{1} {2m}$ and  $c^{m}$ is $4m$-periodic.
+We indicate the transpose operation using a~$\phantom{}'$ symbol.
+The functions of primary interest are now defined.
+
+For each $m,n\geq 1$, set
+\begin{align*}
+\epsilon^{m,n}\coloneqq D'_nc^{m,n},
+\end{align*}
+where $D_n$ denotes the $n$th leading principal submatrix of $D$, $D'_n$ denotes the transpose of $D_n$ and $c^{m,n}$ consists of the 
+$n$ leading terms of $c^{m}$.  
+Written explicitly, for $1\leq j\leq n$,
+\begin{align}
+\epsilon^{m,n}(j) = \sum_{\substack{k\\jk\leq n}} c^{m}(jk).
+\label{eqn:defcm}
+\end{align}
+For example, 
+\begin{align*}
+\epsilon^{1,6} &= 
+D_{6}' c^{1,6}=
+\begin{pmatrix}
+ 1& 1& 1& 1& 1& 1\\
+ 0& 1& 0& 1& 0& 1\\
+ 0& 0& 1& 0& 0& 1\\
+ 0& 0& 0& 1& 0& 0\\
+ 0& 0& 0& 0& 1& 0\\
+ 0& 0& 0& 0& 0& 1
+\end{pmatrix}
+\begin{pmatrix}
+\phantom{-}  1 \\
+\phantom{-}  0 \\
+            -1 \\
+\phantom{-}  0 \\
+\phantom{-}  1 \\
+\phantom{-}  0
+\end{pmatrix}
+= \begin{pmatrix}
+\phantom{-}  1\\
+\phantom{-}  0\\
+            -1\\
+\phantom{-}  0\\
+\phantom{-}  1\\
+\phantom{-}  0
+\end{pmatrix}.
+\end{align*}
+
+The following proposition describes basic properties of  $\epsilon^{m,n}$.
+When applied to the above example, items~\ref{item:bound} and \ref{item:identity} of Proposition~\ref{prp:main}
+imply that $\norm{\epsilon^{1,6}}_{\infty}\leq 1$ and $\sum_{k\leq 6}\epsilon^{1,6}(k)\mu(k)=1$, which may be 
+verified by inspection.
+\begin{proposition}
+In the established notation, 
+\begin{enumerate}
+\item \label{prp:gcd}if $1\leq k \leq n$ and $(k,2m)>1$, then $\epsilon^{m,n}(k)=0$;
+\item \label{item:bound}$\epsilon^{m,n}\in\set{-1,0,1}^{n}$;
+\item if $n\geq 3m$, then $\norm{\epsilon^{m,n}}_{1}\geq\floor{n/(3m)}$ and {$\max\!\set{k\!:\!\epsilon^{m,n}(k)\neq 0}\!=2m\!\floor{(n-1)/(2m)}\!+\!1$};\label{item:vanish}
+\item \label{item:identity}$\sum_{k\leq n} \epsilon^{m,n}(k)\mu(k)=1$.
+\end{enumerate}
+\label{prp:main}
+\end{proposition}
+\begin{proof}
+For all $1\leq j\leq n$,
+\begin{align*}
+\epsilon^{m,n}(j)&= 
+\sum_{\substack{k\\jk\leq n}} c^{m}(jk)\\
+&= \sum_{\substack{k\leq n\\k\equiv \modd{0} {j}\\k\equiv \modd{1} {4m}}} 1 - 
+    \sum_{\substack{k\leq n\\k\equiv \modd{0} {j}\\ k\equiv \modd{2m+1} {4m}}} 1\\
+&= \abs{A^{j}} - \abs{B^{j}},
+\end{align*}
+where \begin{align*}
+A^{j}\coloneqq \set{  jk\leq n:  k\in\N,\, jk\equiv \modd{1} {4m}}\end{align*}
+and 
+\begin{align*}
+B^{j}\coloneqq\set{ jk\leq n: k\in\N,\, jk\equiv \modd{2m+1} {4m}}. \end{align*}
+To see item~\ref{prp:gcd} of the proposition, observe that neither $jk\equiv \modd{1} {4m}$ nor $jk\equiv \modd{2m+1} {4m}$ has an integer solution when $(j,2m)>1$.
+Consequently, $\epsilon^{m,n}(j) = \abs{A^{j}} - \abs{B^{j}}=0-0=0$  when $(j,2m)>1$.
+
+For item~\ref{item:bound}, observe that either $\epsilon^{m,n}(j)=0$, or else $(j,2m)=1$ and
+\begin{align*}
+\epsilon^{m,n}(j)=\abs{A^{j}}-\abs{B^{j}} =
+\sum_{\substack{k\leq n/j\\ k\equiv \modd{j^*} {4m}}} 1 - 
+\sum_{\substack{k\leq n/j\\ k\equiv \modd{(2m+1)j^*} {4m}}} 1,
+\end{align*}
+where $j^*$ is the unique integer satisfying both $1\leq j^*\leq 4m-1$ and $jj^*\equiv \modd{1} {4m}$. Then since $j^*$ is necessarily
+odd, $(2m+1)j^*\equiv \modd{2m+j^*} {4m}$. Therefore,
+\begin{align*}
+\epsilon^{m,n}(j)&= 
+\sum_{\substack{k\\ 0<j^* + 4mk\leq n/j}}1 - \sum_{\substack{k\\ 0<2m + j^* + 4mk\leq n/j}}1 \\
+&=\sum_{0<2k+\frac{j^*}{2m}\leq \frac{n/j}{2m}}1 - \sum_{ 0<(2k+1) + \frac{j^*}{4m}\leq \frac{n/j}{2m}} 1.
+\end{align*}
+Hence,
+\begin{align}
+\epsilon^{m,n}(j)&= \sum_{-\frac{j^*}{2m}<v\leq \frac{n/j}{2m}-\frac{j^*}{2m}} \paren{-1}^v.
+\label{eqn:explicit}
+\end{align}
+Consecutive terms in the last expression sum to 0. Since each individual term in the expression is either $-1$ or $+1$, 
+the total sum is either $-1$, $0$, or $1$.
+
+We now show the third claim. 
+Assume $n\geq k>n/3$.
+From Eq.~(\ref{eqn:defcm}), and
+since $c^{m}(k)=0$ whenever $k\not\equiv \modd{1} {2m}$,
+\begin{align}
+\epsilon^{m,n}(k) &= c^{m}(k)+c^{m}(2k) = c^{m}(k).
+\label{eqn:cm}
+\end{align}
+Consequently,
+\begin{align*}
+\norm{\epsilon^{m,n}}_1 \geq \sum_{n/3<j\leq n} \abs{\epsilon^{m,n}(j)} = \sum_{n/3<j\leq n} \abs{c^{m}(j)} &=  \sum_{\substack{n/3<j\leq n\\j \equiv \modd{1} {2m}}} 1
+= \sum_{n/3<1+2ml\leq n} 1
+= \sum_{\frac{n-3}{6m}< l \leq \frac{3n-3}{6m} } 1.
+\end{align*}
+Since $a<b$ implies $\abs{ (b-a) - \sum_{a<j\leq b}1}<1$, it follows that
+\begin{align*}
+\norm{\epsilon^{m,n}}_1  > \frac{n}{3m}-1.
+\end{align*}
+Since $\norm{\epsilon^{m,n}}_1 $ is integer-valued, the first statement of the third item follows. The second statement of this item follows from the definition of $c^{m}$ and Eq.~(\ref{eqn:cm}).
+
+To see the last claim, observe that Eq.~(\ref{eqn:dirinv}) implies $D_n\mu_n=\delta_n$, where $\mu_n$ represents the leading $n$ terms of $\mu$.
+Then, by applying the definitions of $c^{m,n}$ and $\epsilon^{m,n}$, it follows that
+\begin{align*}
+\sum_{1\leq k\leq n} \epsilon^{m,n}(k)\mu(k) &=  \mu_n'\epsilon^{m,n} =  \mu_n'D_n' c^{m,n} =  \paren{D_{n}\mu_n}'  c^{m,n} =  \delta_n' c^{m,n} =  c^{m,n}(1) = 1.\qedhere
+\end{align*}
+\end{proof}
+Equation~(\ref{eqn:cos}) of Section~\ref{sec:intro} follows from the above observations. 
+To see this, let $d^{k,n}$ denote column $k$ of $D_n$ and note that $d^{k,n}$ is supported on integers $jk\leq n$.
+Next, observe that
+\begin{align*}
+c^{1,n} &= (1,0,-1,0,\ldots) = \paren{\cos{\paren{\frac{\pi (k-1)}{2}}}:1\leq k\leq n}.
+\end{align*}
+Hence,
+\begin{align*}
+\epsilon^{1,n}(k) = \paren{d^{k,n}}' c^{1,n} = \sum_{jk\leq n}\cos{\paren{\frac{\pi (jk - 1)}{2}}},
+\end{align*}
+which shows the claim. 
+
+\begin{corollary}
+Let $m,n,\in\N$. For each positive integer $k\leq n$ set \begin{align*}
+\omega^{m,n}(k)\coloneqq \begin{cases}
+\epsilon^{m,n}(k), & \text{if $k$  is odd;}\\
+\epsilon^{m,{\floor{n/2}}}(k/2), & \text{if $k$ is even.}
+\end{cases}
+\end{align*}
+Then $\omega^{m,n}\in \set{-1,0,1}^{n}$. If $n>1$, then $\sum_{k\leq n}\omega^{m,n}(k)\mu(k)=0$.
+\label{cor:omega}
+\end{corollary}
+\begin{proof}
+By Proposition~\ref{prp:main} item \ref{prp:gcd},
+for all $m,n\geq 1$, the function $\epsilon^{m,n}$ is supported on odd integers.  
+Since $\mu(2k)=-\mu(k)$ when $k$ is odd,  it follows by Proposition~\ref{prp:main} item \ref{item:identity} that
+\begin{align*}
+\sum_{k\leq n}\omega^{m,n}(k)\mu(k) &= 
+\sum_{2k+1\leq n}\epsilon^{m,n}(2k+1)\mu(2k+1) + 
+\sum_{2k\leq n}\epsilon^{m,{\floor{n/2}}}(k)\mu(2k) = 1-1=0.\qedhere
+\end{align*}
+\end{proof}
+
+Our next aim is to develop analogous results for 
+the summatory function of $\mu$, {i.e.}, the Mertens function, $M$.
+Let $S_{n}\in\set{0,1}^{n\times n}$ denote the lower-triangular matrix with $S_n(i,j)=1$ whenever $j\leq i$.
+Then $S_n$ is the matrix representation
+that corresponds to the operation of cumulative summation applied to $n$-vectors.
+Let $M_n\coloneqq (M(1),\ldots,M(n))$. Then $M_n = S_n\mu_n$.
+Let $\Delta_n\coloneqq \paren{S_{n}'}^{-1}$. Then 
+\begin{align}
+\Delta_n &= \begin{pmatrix}
+1 &          -1 \\
+  &\phantom{-}1 & -1\\
+  &             & \phantom{-}1 & -1\\
+  &             &  & \ddots &-1\\
+  &             &  &   &\phantom{-}1
+\end{pmatrix},
+\label{eqn:deltan}
+\end{align}
+which is the matrix representation of a difference operation applied to $n$-vectors.  Set 
+\begin{align*}
+E^{m,n}\coloneqq \Delta_n^{\phantom{m}}\epsilon^{m,n}. 
+\end{align*}
+The next corollary combines the above observations into a result that parallels Proposition~\ref{prp:main}.
+\begin{corollary}
+In the established notation,
+\begin{enumerate}
+\item $E^{m,n}\in\set{-1,0,1}^n$;
+\item if $n\geq 3m$, then $\norm{E^{m,n}}_1\geq 2\floor{n/(3m)}-1$;
+\item $\sum_{k\leq n} M(k) E^{m,n}(k)=1$.
+\end{enumerate}
+\label{cor:main}
+\end{corollary}
+\begin{proof}
+Since $\epsilon^{m,n}(2k)=0$ for all $k\geq 1$, the difference of adjacent entries of 
+$\epsilon^{m,n}$ is $-1,0$ or~$1$. This shows the first claim.
+
+For $1\leq k<n$,
+\begin{align*}
+\abs{E^{m,n}(k)} = \abs{\epsilon^{m,n}(k)} + \abs{\epsilon^{m,n}(k+1)}.
+\end{align*}
+This fact, when combined with items~\ref{item:bound} and \ref{item:vanish} of Proposition~\ref{prp:main} implies
+\begin{align*}
+\norm{E^{m,n}}_1 &= \sum_{k<n}\paren{ \abs{\epsilon^{m,n}(k)} + \abs{\epsilon^{m,n}(k+1)}} + \abs{\epsilon^{m,n}(n)}\\
+&=\norm{\epsilon^{m,n}}_1 + \norm{\epsilon^{m,n}}_1 -\abs{\epsilon^{m,n}(1)} 
+\geq 2\floor{\frac{n}{3m}}-1.
+\end{align*}
+This shows the second claim.
+
+Finally, apply Proposition~\ref{prp:main} and the respective definitions to find
+\begin{align*}
+M'_n E^{m,n}  &= \paren{S_n\mu_n}' \Delta^{\phantom{m}}_n\epsilon^{m,n}
+= \mu_n' S_n' \paren{S_{n}'}^{-1}\epsilon^{m,n}
+= \mu_n'\epsilon^{m,n}
+= 1.
+\qedhere\end{align*}
+\end{proof}
+
+\subsection{Remarks  on Eq.~(\ref{eqn:cos})}
+\label{subsec:cos}
+It follows from (\ref{eqn:cos}), that for all positive integers $n$ and $k\in\N$ satisfying $k\leq n$, 
+the value of $\epsilon^{1,n}(k)$ equals the real part of the sum, ${\sum_{1\leq j\leq \floor{n/k}} i^{jk-1}}$,
+where $i\coloneqq \sqrt{-1}$.
+This leads to a closed-form expression for $\epsilon^{1,n}(k)$. When $k$ is even, 
+it follows by Proposition~\ref{prp:main} item \ref{prp:gcd} that $\epsilon^{1,n}(k)=0$. Now assume $k$ is odd. One has
+\begin{align*}
+\sum_{1\leq j\leq \floor{n/k}} i^{jk-1} & = i^{k-1}\frac{1 - i^{k\floor{n/k}}}{1-i^{k}} = 
+(-1)^{\floor{k/2}}\frac{(1 - i^{k\floor{n/k}})(1+i^{k})}{2}.
+\end{align*}
+Since $i^{k\floor{n/k}}=\paren{i^{\floor{n/k}}}^{k}$, the above expression vanishes 
+when $\floor{n/k}\equiv \modd{0} {4}$.
+Next, when $\floor{n/k}$ is odd, and since $k$ is assumed odd, the real part of the above expression
+equals $(-1)^{\floor{k/2}}\paren{ 1 - i^{k(\floor{n/k}+1)}}/2$, which vanishes when $\floor{n/k}\equiv \modd{-1} {4}$.
+When $\floor{n/k}\equiv \modd{1} {4}$, one has $i^{\floor{n/k}}=i$ so that the right-hand side of the above 
+sum reduces to 
+\begin{align*}
+(-1)^{\floor{k/2}} \frac{(1-i^{k})(1+i^{k})}{2} &= (-1)^{\floor{k/2}} \frac{1-i^{2k}}{2} = (-1)^{\floor{k/2}}.
+\end{align*}
+Finally, when  $\floor{n/k}\equiv \modd{2} {4}$, $i^{\floor{n/k}}=-1$, and (recalling that $k$ is assumed odd) the right-hand side of the above sum reduces to
+\begin{align*}
+(-1)^{\floor{k/2}} \frac{(1-(-1)^{k})(1+i^{k})}{2} &= (-1)^{\floor{k/2}}(1+i^{k}),
+\end{align*}
+the real part of which is $(-1)^{\floor{k/2}}$.
+
+Therefore, for all positive integers $n$ and $k$ that satisfy $k\leq n$,
+\begin{align}
+\epsilon^{1,n}(k)&= \begin{cases} 0, & \text{if $\floor{n/k}\equiv \modd{r} {4}$ for some $r\in\set{0,-1}$};\\
+      \sin\paren{k\pi/2},&\text{otherwise.}
+\end{cases}
+\label{eqn:e1n}
+\end{align}
+
+\label{subsec:explicit}
+When $1\leq k\leq n$, an explicit formula for $\epsilon^{m,n}(k)$ is possible to derive. 
+The case where $(k,2m)>1$ is discussed in Proposition~\ref{prp:main} item~\ref{prp:gcd}, so we now assume $(k,2m)=1$.
+Let $k^*$ be any integer satisfying $kk^*=\modd{1} {4m}$.  By Eq.~(\ref{eqn:explicit}), one has
+\begin{align*}
+\epsilon^{m,n}(k)&=
+\sum_{\substack{j\\
+\frac{-k^*}{2m}<2j\leq \frac{\floor{n/k} - k^*}{2m}}} 1
+ -
+\sum_{\substack{j\\
+\frac{-k^*}{2m}<2j+1\leq \frac{\floor{n/k} - k^*}{2m}}} 1\\
+&=
+\sum_{\substack{j\\
+\frac{-k^*}{4m}<j\leq \frac{\floor{n/k} - k^*}{4m}}} 1
+ -
+\sum_{\substack{j\\
+\frac{-k^*}{4m}-\frac{1}{2}<j\leq \frac{\floor{n/k} - k^*}{4m}-\frac{1}{2}}} 1\\
+&=
+\paren{\floor{\frac{\floor{n/k} - k^*}{4m}} - \floor{\frac{-k^*}{4m}}}
+-
+\paren{\floor{\frac{\floor{n/k} - k^*}{4m}-\frac{1}{2}} - \floor{\frac{-k^*}{4m}-\frac{1}{2}}}\\
+&=
+\paren{\floor{\frac{\floor{n/k} - k^*}{4m}} - \floor{\frac{\floor{n/k} - k^*}{4m}-\frac{1}{2}} }
+-
+\paren{
+\floor{\frac{-k^*}{4m}}
+- \floor{\frac{-k^*}{4m}-\frac{1}{2}}}\\
+&= 
+\sum_{\substack{j\\
+\frac{\floor{n/k}-k^*}{4m}-\frac{1}{2} < j\leq {\frac{\floor{n/k} - k^*}{4m}}}} 1
+- 
+\sum_{\substack{j\\
+\frac{- k^*}{4m}-\frac{1}{2}< j \leq {\frac{- k^*}{4m}}}} 1.
+\end{align*}
+Then, letting $\pbrace{x}\coloneqq x-\floor{x}$ denote the fractional part of $x$,
+\begin{align*}
+\epsilon^{m,n}(k)&=\begin{cases}
+\phantom{-} 1, &\text{if $(k,2m)=1$, $\pbrace{\frac{k^*}{4m}}\in (0,\frac{1}{2}]$ and $\pbrace{\frac{k^*-\floor{n/k}}{4m}}\not\in (0,\frac{1}{2}]$;}\\
+           -1, &\text{if $(k,2m)=1$, $\pbrace{\frac{k^*}{4m}}\not\in (0,\frac{1}{2}]$ and $\pbrace{\frac{k^*-\floor{n/k}}{4m}}\in (0,\frac{1}{2}]$;}\\
+\phantom{-} 0, &\text{otherwise.}
+\end{cases}
+\end{align*}
+\subsection{An identity involving a sparse sum}
+\label{subsec:bv}
+Benito and Varona (\cite[Theorem 9]{benito2008recursive}) establish the identity,
+\begin{align*}
+2M(n)+3 = g(n,1) + \sum_{3\leq a\leq n-1} h(a)\paren{ M\paren{\frac{n}{a}} - M\paren{\frac{n}{a+1}}},
+\end{align*}
+where $g(x,1)$ and $h(x)$ depend on the value of $\modd{x} {6}$, and the 
+values of both $g$ and $h$ are tabulated. 
+The utility of this formula is that it leads to an efficient and recursive means of evaluating $M$.
+In Proposition~\ref{cor:bv} of this section, we establish a similar identity. 
+
+Before stating the identity, we introduce notation.
+The unique non-principal Dirichlet character mod 4 is
+\begin{align*}
+\chi(k)&=\begin{cases} 
+\phantom{-}1, &\text{if $k\equiv \modd{1} {4}$;}\\
+-1, &\text{if $k\equiv \modd{-1} {4}$;}\\
+\phantom{-}0, &\text{otherwise}.
+\end{cases}
+\end{align*}
+The sine-factor in the non-vanishing case of~(\ref{eqn:e1n}) satisfies 
+$\sin\paren{k\pi/2} = \chi(k)$ for all integers $k$.
+Next, we define 
+\begin{align*}
+M(x,\chi)\coloneqq \sum_{k\leq x} \mu(k)\chi(k),
+\end{align*}
+and set
+\begin{align*}
+\eta(k)\coloneqq \begin{cases} 1, &\text{if $k\equiv \modd{r} {4}$ for some $r\in\set{1,2}$;}\\
+0, &\text{otherwise.}
+\end{cases}
+\end{align*}
+We are now ready to state the identity. 
+\begin{proposition}
+For all $n\geq 1$,
+\begin{align*}
+\sum_{1\leq k\leq n} \eta(k)\paren{ M\paren{\frac{n}{k},\chi} -  M\paren{\frac{n}{k+1},\chi} } = 1.
+\end{align*}
+\label{cor:bv}
+\end{proposition}
+\begin{proof}
+One has
+\begin{align*}
+\sum_{1\leq k\leq n} \eta(k)\paren{ M\paren{\frac{n}{k},\chi} -  M\paren{\frac{n}{k+1},\chi} } &=
+\sum_{\substack{k,j\\k\equiv \modd{r} {4}, r\in\set{1,2}\\{\frac{n}{k+1}< j\leq \frac{n}{k}}}} \mu(j)\chi(j)\\
+&=\sum_{4l+3>\floor{n/j}\geq 4l+1} \mu(j)\chi(j)\\
+&=\sum_{j} \epsilon^{1,n}(j)\mu(j)\\
+&=1,
+\end{align*}
+where the third equality follows from Eq.~(\ref{eqn:e1n}) and the definition of $\chi$, 
+and the last equality from Proposition~\ref{prp:main}~item~\ref{item:identity}.
+\end{proof}
+
+\section{A family of unimodular matrices}
+\label{sec:qn}
+The classical identities expressed in Eq.~(\ref{eqn:delta}) and Eq.~(\ref{eqn:sumdelta}) of the introduction are equivalent.
+Indeed, for any integer $n\in\N$, 
+Eq.~(\ref{eqn:delta}) states $D_n\mu_n=\delta_n$. 
+Multiplication of both sides by $S_n$ yields, $S_nD_n\mu_n=S_n\delta_n = \vv{1}_n$, which is (\ref{eqn:sumdelta}). 
+Equivalence follows by observing that $S_n$ is invertible. This observation generalizes to 
+yield the infinite family of identities, $S_n^{k}D^{\phantom{k}}_n\mu_n = S_n^{k}\delta^{\phantom{k}}_n$, where
+$k,n\in\N$ are arbitrary.  The next proposition describes a closely-related family of identities.
+We first state a lemma that generalizes the identity, $\sum_{d|n}\phi(d)=n$, where $\phi$ is Euler's totient function.
+\begin{lemma}
+For positive $j,k\in\N$, write $\phi^{k}(j)\coloneqq \sum_{\ell\leq j/k,\, (\ell,j)=1} 1$. 
+Let $R_{n}\coloneqq D_n^{-1}S_nD_n$. Then for all $1\leq j,k\leq n$, $R_{n}(j,k) = \phi^{k}(j)$. 
+\label{lem:phi}
+\end{lemma}
+\begin{proof}
+Column $k$ of $S_nD_n$ equals $(\floor{1/k},\floor{2/k},\ldots,\floor{n/k})$. Let $\phi^{k}_{n}$ denote the column vector consisting of the 
+$n$ leading terms of $\phi^{k}$.  Our aim is to demonstrate that
+\begin{align}
+(D_n\phi^{k}_{n})(j) &= \sum_{d|j}\phi^{k}(d)=\floor{j/k}
+\label{eqn:phin}
+\end{align}
+holds when $1\leq j,k \leq n$. Once this has been shown, one arrives at $( D_n^{-1}S_nD_n)(j,k)=\phi^{k}(j)$ by applying $D_n^{-1}$ to both sides.
+Fix $j$ and $k$. For each integer $d$ with $d|j$, define the set
+\begin{align*}
+S_d\coloneqq\set{s\in\N: 1\leq s\leq j/k\text{ and } (s,j)=j/d}.
+\end{align*}
+Then $S_d$ consists of all integers with the form $(t)(j/d)$, where $1\leq t\leq d/k$ and $(t,d)=1$.
+Then $\abs{S_d} = \phi^k(d)$. Each integer between $1$ and $\floor{j/k}$ belongs to a unique $S_d$. Summing over $d$, one has~(\ref{eqn:phin}).
+\end{proof}
+\begin{proposition}
+For positive $n\in\N$, set $Q_n\coloneqq R_n'R_n$.
+Then $Q_n$ is a positive definite matrix, both $Q_n$ and $(Q_n)^{-1}\in\Z^{n\times n}$, and $\det Q_{n} = \det\paren{Q_{n}}^{-1}=1$. 
+Additionally,
+\begin{enumerate}
+\item $Q_n\mu_n=\delta_n$\label{item:delta}; 
+\item $Q_{n}(i,j)>0$ for all $1\leq i,j\leq n$;\label{item:pos}
+\item $Q_{n}(1,1) = \sum_{1\leq k\leq n} \phi(k)^2$\label{item:lambdan}. 
+\end{enumerate}
+\label{prp:qn}
+\end{proposition}
+\begin{proof}
+Recall that $D$ is the matrix representation of Dirichlet convolution by $\vv{1}$, and the inverse operation is Dirichlet convolution by $\mu$.
+In particular, the matrix $D_n^{-1}$ is $(-1,0,1)$-valued.
+Since each of $D_n$, $D_n^{-1}$ and $S_n$ live in $\Z^{n\times n}$, it follows that $Q_n\in\Z^{n\times n}$. 
+
+Also, each of $D_n$, $D_n^{-1}$ and $S_n$ are lower-triangular with $1$ along the main diagonal, so each has determinant equal to $1$, as
+do their transposes. Since
+$\det$ is multiplicative, $\det Q_n=1$, from which it follows (by Cramer's rule) that $(Q_n)^{-1}\in\Z^{n\times n}$. Additionally, since for all $x\in\R^{n}\setminus\set{\vv{0}}$ one has $x'Q_nx = \norm{(D_n^{-1}S_nD_n) x}^2\geq 0$,
+$Q_n$ is nonnegative definite. But $\det Q_n=1>0$, so it has full rank. In particular, $x'Q_nx >0$, which implies, since $x\neq \vv{0}$ is arbitrary, that $Q_n$ is positive definite.
+
+We now establish item~\ref{item:delta} of the proposition's statement.
+The first column of $S_n$ equals the first column of $D_n$, both of which equal $\vv{1}_n$. Thus, recalling Eq.~(\ref{eqn:dirinv}),
+\begin{align*}
+R_{n}\mu_n = D_n^{-1}S_nD_n\mu_n = D_n^{-1}S_n\delta_n = D_n^{-1}\vv{1}_n=\delta_n.
+\end{align*}
+The first column of each of the upper-triangular matrices $(D_n^{-1})'$, $D_n'$ and $S_n'$ equals $\delta_n$, so
+\begin{align*}
+Q_n\mu_n = R_n'R_n\mu_n = D_n'S_n'\paren{D_n^{-1}}'\delta_n = D_n'S_n'\delta_n = D_n'\delta_n  =\delta_n.
+\end{align*}
+
+For the proof of item~\ref{item:pos}, note that $\phi^k$ of Lemma~\ref{lem:phi} satisfies $\phi^{k}(l)>0$ whenever $l\geq k$. 
+Therefore $Q_{n}(j,k)=\sum_{l\leq n} \phi^{j}(l)\phi^k(l)\geq \phi^{j}(n)\phi^{k}(n)>0$ when $1\leq j,k\leq n$.
+Item~\ref{item:lambdan} is also immediate from Lemma~\ref{lem:phi}. Indeed, $Q_{n}(1,1)=\sum_{j\leq n} \paren{\phi^1(j)}^{2}=\sum_{j\leq n}(\phi(j))^{2}$.
+\end{proof}
+
+
+In the discussion below, it may be helpful to have a reference example of $R_{n}$, $Q_n$ and~$Q_{n}^{-1}$:
+\begin{align*}
+R_7 = \begin{pmatrix}
+1 \\
+1 & 1\\
+2 & 1 & 1 \\
+2 & 1 & 1 & 1\\
+4 & 2 & 1 & 1 & 1\\
+2 & 1 & 1 & 1 & 1 & 1\\
+6 & 3 & 2 & 1 & 1 & 1 & 1
+\end{pmatrix},\qquad
+Q_7 = \begin{pmatrix}
+  66 & 33 &  22  & 14  & 12   & 8   & 6\\ 
+  33 & 17 &  11  &  7  &  6   & 4   & 3\\ 
+  22 & 11 &   8  &  5  &  4   & 3   & 2\\ 
+  14 &  7 &   5  &  4  &  3   & 2   & 1\\ 
+  12 &  6 &   4  &  3  &  3   & 2   & 1\\ 
+   8 &  4 &   3  &  2  &  2   & 2   & 1\\ 
+   6 &  3 &   2  &  1  &  1   & 1   & 1  
+\end{pmatrix},
+\end{align*}
+and
+\begin{align*}
+(Q_7)^{-1} = \begin{pmatrix}
+\hm   1 &     -1  &     -1 & \hm    &     -1  & \hm  1  &      -1\\ 
+     -1 & \hm  2  & \hm    & \hm    & \hm     & \hm     & \hm    \\ 
+     -1 & \hm     & \hm  3 &     -1 & \hm  2  &     -2  & \hm   1\\ 
+\hm     & \hm     &     -1 & \hm  2 &     -1  & \hm     & \hm   1\\ 
+     -1 & \hm     & \hm  2 &     -1 & \hm  4  &     -3  & \hm   2\\ 
+\hm   1 & \hm     &     -2 & \hm    &     -3  & \hm  4  &      -3\\ 
+     -1 & \hm     & \hm  1 & \hm  1 & \hm  2  &     -3  & \hm   5  
+\end{pmatrix}.
+\end{align*}
+
+Item \ref{item:delta} of the proposition states that $\mu_n$ is the first column of $(Q_{n})^{-1}$. The second column of $(Q_{n})^{-1}$ has a far simpler form, namely $q\coloneqq(-1,2,0,0,0,\ldots,0)$.
+To see this, observe that $R_n(2,1)=R_n(2,2)=1$. When $j>2$, $R_n(j,2)=\floor{R_n(j,1)/2}$, and
+since $R_n(j,1)=\phi^{1}(j)=\phi(j)$ is even, $\floor{R_n(j,1)/2}={R_n(j,1)/2}$.
+Noting that $R_n'$ is upper-triangular and $R(1,1)=1$, one has 
+\begin{align*}R_n'R_nq=R_n'\begin{pmatrix}-1\\\hm 1\\\hm 0\\\hm\vdots\\\hm 0\end{pmatrix} 
+= \begin{pmatrix}0\\ 1\\ 0\\\vdots\\0\end{pmatrix}.\end{align*}
+
+Since $Q_n$ is Hermitian, the eigenvalues of $Q_n$  are real.  Let 
+$\lambda_1\leq \lambda_2\leq \ldots\leq \lambda_n$ denote the eigenvalues of $Q_n$.
+By item~\ref{item:pos}, we may invoke the Perron-Frobenius theorem to conclude that $\lambda_n$ is simple and that the eigenvector associated
+with $\lambda_n$, denoted $v_n$, satisfies $v_n(j)>0$ for $1\leq j\leq n$. 
+
+The following two propositions concern the spectrum of $Q_n$. Table~\ref{tbl:lambdai} illustrates these propositions.
+\begin{table}
+\begin{center}
+\caption{Eigenvalue $\lambda_i$ of $Q_n$.}
+\label{tbl:lambdai}
+\begin{tabular}{clll}
+\toprule
+$i$ & $n=999$ & $n=1000$ & $n=1001$\\
+\midrule
+1           &  $ 4.588 \times 10^{-4}$ &   $4.580   \times 10^{-4}$ &  $   4.573 \times 10^{-4}$\\
+2           &  $ 6.887 \times 10^{-4}$ &   $6.879   \times 10^{-4}$ &  $   6.859 \times 10^{-4}$\\
+$\cdots$\\
+$n-1$       &  $ 4.458 \times 10 ^{4}$ &   $4.471\times 10^{4}$ &     $4.487\times 10^{4}$\\
+$n$         &  $ 2.344 \times 10 ^{8}$ &   $2.346\times 10^{8}$ &     $2.355\times 10^{8}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{proposition}
+The eigenvalues of $Q_n$ interlace the eigenvalues of $Q_{n+1}$. 
+That is, if $\lambda_{i}$ is the $i$th eigenvalue of $Q_n$ and $\gamma_{i}$ the $i$th eigenvalue of $Q_{n+1}$, then
+\begin{align*} \gamma_{1}\leq \lambda_{1}\leq \gamma_{2}\leq \cdots \leq \gamma_{n}\leq \lambda_n\leq \gamma_{n+1}.\end{align*}
+\end{proposition}
+\begin{proof}
+We claim that $(Q_{n})^{-1}$ is a leading principal submatrix of $(Q_{n+1})^{-1}$. 
+Assume, for the moment, that this has been established.  Then by Cauchy's interlacing theorem, 
+the eigenvalues of $(Q_{n})^{-1}$ interlace those of $(Q_{n+1})^{-1}$. That is, letting $\lambda_{i}^{-1}$ and $\gamma_{i}^{-1}$ denote the eigenvalues 
+of $(Q_{n})^{-1}$ and $(Q_{n+1})^{-1}$, respectively, 
+\begin{align*} \gamma_{n+1}^{-1}\leq \lambda_{n}^{-1}\leq \gamma_{n}^{-1} \leq \cdots \leq  \gamma_{2}^{-1}\leq \lambda_{1}^{-1}\leq \gamma_{1}^{-1}.\end{align*}
+Since all quantities in this expression are positive scalars, the proposition follows.
+
+We now show that $(Q_{n})^{-1}$ is a leading principal submatrix of $(Q_{n+1})^{-1}$.  
+From the definition of~$Q_n$, we have that
+\begin{align}
+Q_{n}^{-1} = (R_{n}'R_{n})^{-1} =(R_{n})^{-1}(R_{n}')^{-1} = (R_{n})^{-1}(R_{n}^{-1})'.\label{eqn:qnrn}
+\end{align} 
+Recall from Lemma~\ref{lem:phi} the entrywise equality, $R_{n}(j,k)=\phi^{k}(j)$. Since the right-hand side does not depend on $n$, the $(j,k)$ entry 
+of $R_{n}$ does not depend on $n$. Therefore, $R_{n}$ is a leading principal submatrix of $R_{m}$ whenever $m\geq n$.
+Since $R_{n}$ is lower-triangular, it follows (by consideration of block matrix inversion, for example) that $(R_{n})^{-1}$ is a 
+leading principal submatrix of $(R_{m})^{-1}$ for all $m\geq n$.
+This also shows that $(R_{n}^{-1})'$ is a leading principal submatrix of $(R_{m}^{-1})'$ whenever $m\geq n$. 
+
+For $1\leq j\leq n$, define $r^j$ as the $j$th column of $(R_{n+1}^{-1})'$. 
+Since $(R_{n}^{-1})'$ is a leading principal submatrix of $(R_{n+1}^{-1})'$, the first $n$ entries of $r^j$ agree with the $j$th column of $(R_{n}^{-1})'$.
+This, combined with Eq.~(\ref{eqn:qnrn}) and the fact that $R_{n}^{-1}$ is lower-triangular, implies that the 
+$j$th column of $(Q_{n})^{-1}$ equals the column vector that is comprised 
+of the first $n$ entries of $(R_{n+1})^{-1} r^j$. 
+Eq.~(\ref{eqn:qnrn}) also implies that the $j$th column of $(Q_{n+1})^{-1}$ equals $(R_{n+1})^{-1} r^j$. This applies to all 
+$1\leq j\leq n$, so it follows that $(Q_{n})^{-1}$ is a leading principal submatrix of  $(Q_{n+1})^{-1}$.
+\end{proof}
+
+The next proposition establishes bounds on the extremal eigenvalues of $Q_n$.
+\begin{proposition}
+Let $\lambda_{n}$ denote the dominant eigenvalue of $Q_n$. Then
+\begin{align*}
+\paren{c  + o(1)}n^{3}\leq \lambda_n \leq {\frac{\pi^2}{18}n^{3} + O(n^{2})},
+\end{align*}
+where $c$ is a constant that is approximately equal to $0.1427$.
+Let $\lambda_1$ denote the smallest eigenvalue of $Q_n$. Then
+\begin{align*}
+\lambda_1\leq {\frac{\pi^2}{6}n^{-1} + O\paren{n^{-3/2}}}.
+\end{align*}
+\label{prp:lambdanbound}
+\end{proposition}
+\begin{proof}
+We first show the lower bound on $\lambda_n$.
+Since $\lambda_n$ is the dominant eigenvalue of $Q_n$, applying item~\ref{item:lambdan} of Proposition~\ref{prp:qn} one has,
+\begin{align*}
+\lambda_n \geq \frac{\delta_n' Q_n \delta_n}{\norm{\delta_n}^2} = Q_n(1,1) = \sum_{k\leq n} \paren{\phi(k)}^2.
+\end{align*}
+We estimate the right-hand sum by applying the Wiener-Ikehara Theorem to the function $H(s)\coloneqq\sum_{k\geq 1}\phi(k)^2 k^{-s}$.
+A comment associated with the sequence~\seqnum{A127473} asserts that $H(s)=\zeta(s-2)\prod_{p\ \textrm{prime}}\paren{1-2p^{1-s} + p^{-s}}$.
+Since this is a known fact, but no proof is provided in the citation, we sketch a proof here. To start, if $n=\prod_{p} p^{r}$, then
+$\phi(n)=\prod_{p|n} p^{r}-p^{r-1}$. Since $n\mapsto \phi(n)n^{-s}$ is a multiplicative function, one has the Euler product,
+\begin{align*}
+H(s)&=\prod_{p\ \textrm{prime}} \paren{1 + \sum_{r\geq 1} \frac{\paren{p^{r}-p^{r-1}}^2}{p^{rs}}}\\
+&= \prod_{p\ \textrm{prime}} \paren{1 + \sum_{r\geq 1} \frac{p^{2r}}{p^{rs}} - 2\frac{p^{2r-1}}{p^{rs}} + \frac{p^{2r-2}}{p^{rs}}}\\
+&= \prod_{p\ \textrm{prime}} \paren{1 + \paren{1 - \frac{2}{p} + \frac{1}{p^{2}}}\frac{p^{2-s}}{1-p^{2-s}}}\\
+&= \prod_{p\ \textrm{prime}} \paren{1-p^{2-s} + {p^{2-s} - {2}{p^{1-s}} + {p^{-s}}}} \paren{\frac{1}{1-p^{2-s}}}\\
+&= \zeta(s-2) \prod_{p\ \textrm{prime}} \paren{1 - 2p^{1-s}+p^{-s}}.
+\end{align*}
+At $s=3$, the infinite product converges and $\zeta(s-2)$ has a simple pole with residue equal to 1. Therefore,
+$H$ has a simple pole at $s=3$, with residue equal to the product of the right-hand side.
+We now apply the Wiener-Ikehara Theorem to conclude that
+\begin{align*}
+\sum_{k\leq n}\paren{\phi(x)}^2 \sim \frac{n^3}{3} \prod_{p\ \textrm{prime}}  \paren{1 - 2p^{-2}+p^{-3}}=\paren{\frac{n^3}{3}}\paren{ 0.42824950\ldots}
+\end{align*}
+We now show the upper bound on $\lambda_n$. Indeed,
+\begin{align*}
+\operatorname{Trace}\paren{Q_n} &= \sum_{k=1}^{n}Q_n(k,k) \\
+&= \sum_{k=1}^{n}\sum_{j=1}^{n} \paren{\phi^{k}(j)}^2 \\
+&\leq \sum_{k=1}^{\infty}\sum_{j=1}^{n}\paren{\frac{j}{k}}^2 \\
+&= \frac{n(n+1)(2n+1)}{6} \sum_{k=1}^{\infty} k^{-2} \\
+&= \frac{\pi^2}{18}n^3 + O(n^{2}),
+\end{align*}
+where we have used the elementary identity $\sum_{j=1}^n j^2=n(n+1)(2n+1)/{6}$ and Euler's identity $\sum_{i=1}^{\infty}{i^{-2}}=\pi^2/6$.
+Finally, recall that $Q_n$ is positive definite and $\operatorname{Trace}\paren{Q_n} =\sum_{i=1}^{n}\lambda_i\geq \lambda_n$.
+
+We now show the upper bound on $\lambda_1$. We have by item \ref{item:delta} of Proposition~\ref{prp:qn} that
+\begin{align*}
+\frac{\mu_n'Q_n\mu_n}{\norm{\mu_n}^2} = \frac{\mu_n'\delta_n}{\norm{\mu_n}^2} = \frac{\mu(1)}{\sum_{k\leq n}\mu_n(k)^2}
+=
+\frac{1}{\sum_{k\leq n}\abs{\mu_n(k)}}\geq \lambda_1.
+\end{align*}
+The penultimate expression is the reciprocal of the number of squarefree integers not exceeding~$n$. The desired bound is a consequence of this,
+combined with an application of Gegenbauer's estimate \cite[p.\ 47]{gegenbauer1885},
+\begin{align*}
+{\sum_{k\leq n}\abs{\mu_n(k)}}=\frac{6}{\pi^2} n + O(n^{1/2}). 
+\end{align*}
+That is,
+\begin{align*}
+\lambda_1 &\leq \paren{\sum_{k\leq n}\abs{\mu_n(k)}}^{-1}={\frac{\pi^2}{6}n^{-1} + O(n^{-3/2})}.\qedhere
+\end{align*}
+\end{proof}
+\begin{corollary}
+In the established notation,
+$\abs{v_n'\mu_n} \leq n^{-3/2} C(1+o(1))$,
+\label{cor:mun}
+where the constant $C$ is approximately 2.6467.
+\end{corollary}
+\begin{proof}
+For $1\leq i\leq n$, let $v_i$ satisfy $Q_nv_i = \lambda_iv_i$. We may assume that $v_i'v_j=0$ whenever $i\not=j$, that $v_i'v_i=1$ for all $1\leq i\leq n$ and that the space spanned
+by $\set{v_i:1\leq i\leq n}$ has dimension $n$.  Then $\mu_n = \sum_{1\leq i\leq n}(v_i'\mu_n) v_i$. By item~\ref{item:delta} of Proposition~\ref{prp:qn}, $\mu_n'Q_n\mu_n=1$. Since
+$\lambda_i>0$ for all $i$,
+\begin{align*}
+1  = \mu_n'Q_n\mu_n = \sum_{1\leq i\leq n} \lambda_i \abs{ v_{i}'\mu_n}^2 \geq \lambda_n \abs{v_n'\mu_n}^2 \geq n^{3}(c+o(1)) \abs{v_n'\mu_n}^2,
+\end{align*}
+where the last inequality is from Proposition~\ref{prp:lambdanbound}.  The constant $C$ in the Corollary statement is $c^{-1/2}$.
+\end{proof}
+
+We conclude with a conjecture.
+Recall that the dominant eigenvector of $Q_n$, which is denoted $v_n$, was shown to satisfy $v_n(j)>0$, for all $1\leq j\leq n$.
+Assume we have normalized~$v_n$, so that $\norm{v_n}_2=1$. Let $h(k)\coloneqq k^{-1}$ and let $h_n$ denote the $n$th truncation of $h$. Then
+\begin{align*}
+\lim_{n\rightarrow\infty}n\norm{h_n-(v_n'h_n) v_n}_{\infty}=1. \quad\text{(Conjecture)}
+\end{align*}
+The sequence $h_n$ arises in combination with $\mu_n$ in the asymptotic estimate,
+\begin{align*}
+h_n'\mu_n = \sum_{k=1}^{n} \frac{\mu(k)}{k} = o(1),
+\end{align*}
+which is equivalent to the prime number theorem~\cite{shapiro1949some}.
+
+
+\section{Acknowledgments}
+We thank the anonymous referees for the extraordinary, insightful comments. One anonymous referee 
+contributed most of Section~\ref{subsec:cos}, all of Section~\ref{subsec:bv}, strengthened the main theorem of section~\ref{sec:main}, strengthened the bounds in
+Proposition~\ref{prp:lambdanbound}, and
+contributed arguments that greatly improved many proofs.
+Computing resources for this research were provided by American Family Insurance.
+
+\begin{thebibliography}{9}
+
+\bibitem{apostol1998introduction}
+Tom~M. Apostol, {\em {Introduction to Analytic Number Theory}}, Undergrad.
+  Texts Math., Springer, 1998.
+
+\bibitem{benito2008recursive}
+Manuel Benito and Juan Varona, {Recursive formulas related to the summation of
+  the M{\"o}bius function}, {\em Open Math.\ J.} {\bf 1} (2008), 25--34.
+
+\bibitem{deleglise1996computing}
+Marc Del{\'e}glise and Jo{\"e}l Rivat, {Computing the summation of the
+  M{\"o}bius function}, {\em Exp.\ Math.} {\bf 5} (1996), 291--295.
+
+\bibitem{gegenbauer1885}
+Leopold Gegenbauer, Asymptotisch Gesetze der Zahlentheorie, {\em Denkschriften
+  der Akad. Wiss. zu Wien} {\bf 49} (1885), 37--80.
+
+\bibitem{lehman1960liouville}
+{R. Sherman} Lehman, {On Liouville's function}, {\em Math.\ Comp.} {\bf 14}
+  (1960), 311--320.
+
+\bibitem{shapiro1949some}
+Harold Shapiro, Some assertions equivalent to the prime number theorem for
+  arithmetic progressions, {\em Comm. Pure Appl. Math.} {\bf 2} (1949),
+  293--308.
+
+\end{thebibliography}
+
+\bigskip
+\hrule
+\bigskip
+
+\noindent{\em 2010 Mathematics Subject Classification:} Primary 11A25; Secondary 11K31.\\
+\noindent{\em Keywords:} M\"{o}bius function, Mertens function, Dirichlet convolution, $(-1,0,1)$-valued function, Hermitian matrix.
+
+\bigskip
+\hrule
+\bigskip
+
+\noindent (Concerned with sequences  \seqnum{A002321},  \seqnum{A008683}, \seqnum{A056594}, \seqnum{A127473}, and \seqnum{A327580}.)
+
+\bigskip
+\hrule
+\bigskip
+
+\vspace*{+.1in}
+\noindent
+Received  September 21 2019;
+revised versions received  September 22 2019; December 29 2019; July 7 2020.
+Published in {\it Journal of Integer Sequences}, August 7 2020.
+
+\bigskip
+\hrule
+\bigskip
+
+\noindent
+Return to
+\htmladdnormallink{Journal of Integer Sequences home page}{https://cs.uwaterloo.ca/journals/JIS/}.
+\vskip .1in
+
+
+\end{document}
+
+

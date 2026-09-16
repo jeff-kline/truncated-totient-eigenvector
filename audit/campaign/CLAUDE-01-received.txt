@@ -1,0 +1,121 @@
+Result: probably true, but only proved conditionally. |U(t)| ≤ 1 holds for every real t ≥ 1, with equality only at t = 1, if one published explicit bound on Σ μ(n)/n holds: |m(x)| ≤ 0.199 for all x ≥ 10^7. I have not checked that bound against its source (point 5 below). Everything else is proved here or computed. The computation used float64 with an a-priori roundoff bound, not interval arithmetic; the margin is about 0.5. This settles only the scalar question. The matrix and uniformity gaps in the parent conjecture remain open.
+
+1. Sanity checks (by hand, and confirmed numerically)
+
+- U(1): A₁ = B₁ = g(1) = 1, so U(1) = 1 − C + C = 1.
+- U(2): A₁ = B₁ = 1 on [1,2], so U(2) = 2 − C + C/4 = 2 − 3C/4 ≈ 0.40299.
+- Constant: C ≈ 2.1293443208.
+
+2. Identities (established)
+
+(a) Formula for q. g is multiplicative with g(pᵏ) = p/(p+1) = 1 − 1/(p+1). So g = 1 ∗ q with q(d) = μ(d)/∏_{p|d}(p+1). Also G = Σ q(d)/d = ∏(1 −
+1/(p(p+1))). The main term C·G·(2t/3) = t cancels, which give), as the packet states. I checked this numerically at t = 2,3, 7.5 and 1000.3; it matches to 10⁻⁸.
+
+(b) Closed form for D₀. Put θ = {y} and y = n + θ, and expand 2y³/3 − (n+½)y² + n(n+1)(2n+1)/6. For all y > 0,
+
+  D₀(y) = ½ + B₂(θ)/y − B₃(θ)/(3y²),
+
+where B₂ and B₃ are Bernoulli polynomials. Every power of n cancels; the remainder is exactly −B₃(θ)/3. Define F(y) = B₂(θ) − B₃(θ)/(3y). Since |B₂| ≤
+1/6 and |B₃| ≤ √3/36, we get |F(y)| ≤ K := 1/6 + √3/108 ≈ 0.1
+
+(c) Splitting at d = t. Let M_q(u) = Σ_{d≤u} q(d). For d > t, D₀(t/d) = 2t/(3d). Partial summation gives t Σ_{d>t} q(d)/d = −M_q(t) + t∫_t^∞ M_q(u)u⁻² du, which only needs M_q(u)/u → 0. Therefore
+
+  U(t) = C[ −M_q(t)/6 + (2t/3)∫t^∞ M_q(u)u⁻² du + t⁻¹ Σ{d≤t} q(d)·d·F(t/d) ].
+
+With ε(t) = sup_{u≥t}|M_q(u)| and δ(t) = t⁻¹ Σ_{d≤t} μ²(d)g(dd)):
+
+  |U(t)| ≤ C[(5/6)·ε(t) + K·δ(t)].  (★)
+
+(d) A positive-weight convolution for q. The Dirichlet series satisfy Σq(n)n⁻ˢ / Σμ(n)n⁻¹⁻ˢ = ∏p (1 − x/(p+1))/(1 − x/p) with x = p⁻ˢ. That ratio equals 1 + Σ{k≥1} xᵏ/((p+1)pᵏ). So q = (μ(n)/n) ∗ e, where e is multiplicative with e(pᵏ) = 1/((p+1)pᵏ) > 0. Two consequences:
+- Σ e(m) = ∏ p²/(p² − 1) = ζ(2).
+- E_σ := Σ e(m)m^σ = ∏(1 + 1/((p+1)(p^{1−σ} − 1))), finite for σ < 1.
+
+Hence M_q(u) = Σ_{m≤u} e(m)·m(u/m), where m(x) = Σ_{n≤x} μ(n)ally at u = 1000 and 2000; it agrees to 10⁻¹⁰.
+
+(e) Bound on ε. Split at m = u/X₁ and use the classical boundllows from x·m(x) = 1 + {x} + Σ_{2≤n≤x} μ(n){x/n}, whosemodulus is at most x. Then
+
+  ε(t) ≤ η(X₁)·ζ(2) + (X₁/t)^{1/2}·E_{1/2},  where η(X₁) = sup_{x≥X₁}|m(x)|.
+
+(f) Bound on δ. Write μ²g = 1 ∗ w, with w(p) = −1/(p+1), w(p²0 for k ≥ 3. Then
+
+  δ(t) ≤ ρ + W·t^{−1/4},
+
+where ρ = ∏(1 − 2/(p(p+1))) and W = Σ|w(k)|k^{−3/4}.
+
+3. Constants
+
+Computed from primes up to 10⁷, with explicit tail bounds fol
+
+┌──────────┬──────────────┬────────────────────────────────────────┐
+│ Constant │    Value     │                     How the tail       │
+├──────────┼──────────────┼──────────────────────────────────────────────────────────────────┤
+│ G        │ 0.7044422010 │ Written as (6/π²)∏(1 + 1/((p−1)(p+1)²)); relative tail < 5·10⁻¹⁵ │
+├──────────┼──────────────┼──────────────────────────────────────────────────────────────────┤
+│ ρ        │ ≤ 0.471681   │ Partial product, which is an uppe      │
+├──────────┼──────────────┼──────────────────────────────────────────────────────────────────┤
+│ W        │ ≤ 2.7019     │ Tail bound included                                              │
+├──────────┼──────────────┼──────────────────────────────────────────────────────────────────┤
+│ E_{1/2}  │ ≤ 3.5793     │ Tail bound included                    │
+└──────────┴──────────────┴──────────────────────────────────────────────────────────────────┘
+
+The plain product for G truncated at 10⁷ is off by 4·10⁻⁹, aswritten product avoids that error.
+
+4. Tail estimate for t ≥ 10⁶ (proved, given η)
+
+Take X₁ = 1000. Computing m(x) up to 10⁷ gives sup_{1000≤x≤10⁷}|m(x)| = 0.01166. Plugging into (★):
+- ε(10⁶) ≤ 0.01166·1.64493 + 0.03162·3.5793 = 0.1324
+- δ(10⁶) ≤ 0.4717 + 2.7019·0.03162 = 0.5571
+- |U(t)| ≤ 2.12934·(0.8333·0.1324 + 0.18270·0.5571) ≈ 0.452
+
+The bound decreases in t, so it holds for every t ≥ 10⁶.
+
+The only input not proved here is that |m(x)| stays below the10⁷. Much less is needed: solving (★) for η shows that |m(x)| ≤ 0.199 for all x ≥ 10⁷ already gives |U| < 1.
+
+5. The missing estimate (cited, not verified this session)
+
+I recall that Ramaré, "From explicit estimates for primes to  Moebius function," Acta Arith. 157 (2013) 365–379, proves
+|m(x)| ≤ 0.0144/log x for x ≥ 96955. At x = 10⁷ that is aboutd the constants or the hypotheses against the paper, and I made
+no external lookups. Any published explicit bound giving |m(xd close the proof. This step needs to be confirmed against the
+source before the result is called proved.
+
+6. Finite check, 1 ≤ t ≤ 10⁷ (computed)
+
+U is convex on each [m, m+1], so the maximum is at the endpoints. I checked every integer endpoint, plus every interior minimum at t* = (2CB_m)^{1/3} that falls inside its interval (9,999,997 of them do).
+
+┌────────────┬────────────────────────┬─────────┬────────────────┐
+│  t range   │         max U          │  min U  │ roundoff bound │
+├────────────┼────────────────────────┼─────────┼────────────
+│ [1, 10]    │ 1.0000 (only at t = 1) │ 0.080   │ 4·10⁻¹⁴        │
+├────────────┼────────────────────────┼─────────┼────────────
+│ [10, 10²]  │ 0.139                  │ 0.009   │ 3·10⁻¹²        │
+├────────────┼────────────────────────┼─────────┼────────────
+│ [10², 10⁴] │ 0.036                  │ −0.0012 │ 2·10⁻⁸         │
+├────────────┼────────────────────────┼─────────┼────────────
+│ [10⁴, 10⁶] │ 0.0016                 │ −0.0007 │ 2·10⁻⁴
+└────────────┴────────────────────────┴─────────┴────────────
+
+- On [1, 2], U(t) = t − C + C/t². It is convex, falls from 1  then rises to 0.403 at t = 2. So |U| < 1 on (1, 2].
+- The roundoff bounds are worst-case bounds for naive summatic. They are about 10³ times smaller than the distance to ±1.
+- Numerically, U decays roughly like t^{−1/2} and changes sigcay rate; the argument above does not need it.
+
+7. Status
+
+┌───────────────────────────────────────┬──────────────────────┐
+│                 Claim                 │                      │
+├───────────────────────────────────────┼──────────────────────┤
+│ Identities (a)–(f) and inequality (★) │ Proved by hand, and  │
+├───────────────────────────────────────┼──────────────────────┤
+│ |U(t)| ≤ 1 on [1, 10⁶]                │ Computed in float646 │
+├───────────────────────────────────────┼──────────────────────┤
+│ |U(t)| ≤ 0.452 for t ≥ 10⁶            │ Proved, given sup_{  │
+├───────────────────────────────────────┼──────────────────────┤
+│ That |m(x)| bound                     │ Cited from memory; not verified                │
+└───────────────────────────────────────┴──────────────────────┘
+
+To make this airtight:
+- Verify the Ramaré citation, or any other explicit bound on m(x).
+- Optionally rerun the check up to 10⁶ with exact rationals o
+
+The scan script is in the session scratchpad as uscan.py and 0⁷.
+
+✻ Cogitated for 7m 19s · done 9:53 PM

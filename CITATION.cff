@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this result, cite the archived release version."
+title: "A proof of the 2020 dominant-eigenvector conjecture for truncated-totient matrices"
+type: software
+version: 0.1.0
+authors:
+  - family-names: Kline
+    given-names: Jeffery
+abstract: >-
+  Let R_n be the n-by-n matrix whose (j,k) entry counts the integers a <= j/k
+  coprime to j, and let Q_n = R_n^T R_n. Kline (2020) showed Q_n mu_n = e_1
+  and conjectured that the positive unit dominant eigenvector v_n of Q_n
+  satisfies lim n || h_n - (v_n^T h_n) v_n ||_inf = 1 with h_n(k) = 1/k. This
+  release proves the conjecture. The residual scaled by n converges
+  coordinatewise to an explicit arithmetic profile U(n/k), and the conjecture
+  reduces to |U(t)| <= 1 for real t >= 1, which is closed by an exact integer
+  certificate for t <= 10^6 and an analytic tail bound below 0.68 based on
+  Ramare's explicit harmonic Mobius estimate. The dominant eigenvalue has
+  leading constant G/3, and v_n^T mu_n is asymptotic to 3 sqrt(6) n^-3 /(pi G),
+  replacing the 2020 O(n^-3/2) bound. An exact convolution identity shows the
+  eigenvector approximation yields no new estimate for the harmonic Mobius sum.
+keywords:
+  - Mobius function
+  - Euler totient
+  - truncated totient
+  - dominant eigenvector
+  - Perron vector
+  - rank-one perturbation
+  - computer-assisted proof
+  - exact integer certificate
+  - Mertens function
+repository-code: "https://github.com/jeff-kline/truncated-totient-eigenvector"
+url: "https://github.com/jeff-kline/truncated-totient-eigenvector"
+license: GPL-3.0-or-later

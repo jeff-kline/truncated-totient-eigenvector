@@ -1,0 +1,19 @@
+{
+  "status": "ALL_INTEGER_ASSERTIONS_PASSED",
+  "limit": 1000000,
+  "scale": "1000000000000000000000000000000",
+  "prime_count": 78498,
+  "C_lower_numerator": "2129344320757238687316827406299",
+  "C_upper_numerator": "2129344320758303361606554217009",
+  "C_denominator": "1000000000000000000000000000000",
+  "E_half_upper_numerator": "3588756760325859013900248680340",
+  "E_half_denominator": "1000000000000000000000000000000",
+  "endpoint_checks": 999999,
+  "half_interval_checks": 1999998,
+  "endpoint_upper_bound": "3/4 for integer 2<=m<=10^6",
+  "interval_lower_bound": "-3/4 on [1,10^6]",
+  "tail_upper_bound": "202847/300000",
+  "external_input": "Ramare 2015 Theorem 1.2: |m(x)| log(x)<=1/12 for x>=687; |m(x)|<=1 for x>=1",
+  "process_cpu_seconds": 5.215804,
+  "script_sha256": "08395c08e2be59a5a4e97d234d8af032ffa7f19d9d383e77723721ba9d551587"
+}

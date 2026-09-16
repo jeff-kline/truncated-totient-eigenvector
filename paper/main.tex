@@ -1,0 +1,487 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,microtype,booktabs}
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{Dominant eigenvector of truncated-totient matrices}\fancyhead[R]{Version 0.1.0}\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\muvec}{\boldsymbol\mu}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\DeclareMathOperator{\supp}{supp}
+\title{A proof of the 2020 dominant-eigenvector conjecture\\for truncated-totient matrices}
+\author{Jeffery Kline}
+\date{Version 0.1.0 (release candidate), September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For $n\ge1$ let $R_n$ be the $n\times n$ matrix whose $(j,k)$ entry counts the integers $a\le j/k$ that are coprime to $j$, a truncated totient, and let $Q_n=R_n^\top R_n$. In 2020 the author showed that $Q_n$ has determinant one and that $Q_n\muvec_n=e_1$, where $\muvec_n$ lists the values of the M\"obius function, and conjectured that the positive unit dominant eigenvector $v_n$ of $Q_n$ satisfies
+\[
+ \lim_{n\to\infty}n\,\bigl\|h_n-(v_n^\top h_n)v_n\bigr\|_\infty=1,\qquad h_n(k)=1/k.
+\]
+We prove this conjecture. The proof writes $R_n$ as the rank-one matrix $\varphi_nh_n^\top$ plus a small error, shows that the scaled residual $n\bigl(h_n-(v_n^\top h_n)v_n\bigr)$ converges coordinatewise to the profile $U(n/k)$ of an explicit arithmetic function, and reduces the conjecture to the inequality $|U(t)|\le1$ for all real $t\ge1$. That inequality is established by an exact integer certificate for $1\le t\le10^6$, using outward rational enclosures, and by an analytic bound below $0.68$ for $t\ge10^6$ that rests on Ramar\'e's explicit estimate for the harmonic M\"obius sum. Along the way we determine the leading constant of the dominant eigenvalue, $\Lambda_n\sim(G/3)n^3$ with $G=\prod_p(1-1/(p(p+1)))$, and show that $v_n^\top\muvec_n\sim 3\sqrt6\,n^{-3}/(\pi G)$, replacing the $O(n^{-3/2})$ bound of the 2020 paper. We also record that the natural attempt to use this eigenvector approximation to estimate $\sum_{k\le n}\mu(k)/k$ reproduces that sum exactly up to $O(\log n/n)$, so no new cancellation follows from it.
+\end{abstract}
+
+\section{Introduction}
+Let $\varphi$ be Euler's totient function and $\mu$ the M\"obius function. For integers $1\le j,k\le n$ define the \emph{truncated totient}
+\[
+ R_n(j,k)=\#\{1\le a\le\lfloor j/k\rfloor:\gcd(a,j)=1\},
+\]
+so that $R_n(j,1)=\varphi(j)$ and $R_n(j,j)=1$. The matrix $R_n$ was introduced in \cite{kline}, where it arises as $R_n=D_n^{-1}T_nD_n$ for the divisibility matrix $D_n(i,j)=1_{j\mid i}$ and the lower-triangular all-ones matrix $T_n$. That paper proves the exact identities
+\[
+ R_n\muvec_n=e_1,\qquad Q_n\muvec_n=e_1,\qquad Q_n=R_n^\top R_n,
+\]
+where $\muvec_n=(\mu(1),\ldots,\mu(n))^\top$, so that $\det Q_n=1$ and the M\"obius vector is the first column of $Q_n^{-1}$. Since every entry of $Q_n$ is positive, $Q_n$ has a simple largest eigenvalue $\Lambda_n$ and a unique positive unit eigenvector $v_n$. With $h_n=(1,1/2,\ldots,1/n)^\top$, the 2020 paper established the bounds $0.1427\,n^3\lesssim\Lambda_n\le(\pi^2/18)n^3$, proved in its Corollary~9 that $|v_n^\top\muvec_n|\le(2.6467+o(1))n^{-3/2}$, observed numerically that $v_n$ is close to a multiple of $h_n$, and ended with the conjecture
+\begin{equation}\label{eq:intro-conj}
+ \lim_{n\to\infty}n\,\bigl\|h_n-(v_n^\top h_n)v_n\bigr\|_\infty=1.
+\end{equation}
+The vector inside the norm is the residual of $h_n$ after projection onto $v_n$. The conjecture says that this residual has sup norm exactly $1/n$ to first order.
+
+\subsection*{Main result}
+Theorem~\ref{thm:main} proves \eqref{eq:intro-conj}. It gives more: the residual, scaled by $n$, converges coordinatewise to an explicit function. Writing $g(a)=\prod_{p\mid a}p/(p+1)$, $G=\prod_p\bigl(1-1/(p(p+1))\bigr)$, and $\kappa=3/(2G)$, define for real $t\ge1$
+\[
+ U(t)=t-\kappa\sum_{a\le t}g(a)\Bigl(1-\frac{a^2}{t^2}\Bigr).
+\]
+Then $n\,r_n(k)\to U(t)$ whenever $k/n\to1/t$, where $r_n=h_n-(v_n^\top h_n)v_n$, while for fixed $k$ the scaled coordinate $n\,r_n(k)$ tends to $\rho/k$ for an explicit constant $\rho$ with $|\rho|<6/\pi^2$. The conjecture is therefore equivalent to the scalar inequality $\sup_{t\ge1}|U(t)|=1$, and since $U(1)=1$ exactly, to $|U(t)|\le1$ for all $t\ge1$.
+
+\subsection*{Method}
+The proof has three parts.
+\begin{enumerate}
+\item \emph{Matrix approximation} (Lemma~\ref{lem:matrix}). Inclusion--exclusion over the divisors of $j$ gives $R_n(j,k)=\varphi(j)/k+O(\tau(j))$, so $R_n=\varphi_nh_n^\top+E_n$ with $\|E_n\|_F=O(n\log^{1/2}n)$ against $\|\varphi_nh_n^\top\|_F\asymp n^{3/2}$. Rank-one perturbation theory then expresses $v_n$, $\Lambda_n$, and the residual $r_n$ in terms of the correction vector $q=E_n^\top\varphi_n/\|\varphi_n\|_2^2$, with an error of Euclidean norm $O(n^{-3/2}\log^3n)$. This step is elementary and is uniform over all coordinates.
+\item \emph{Arithmetic profile} (Lemma~\ref{lem:arithmetic}). The correction satisfies $n\,q_k=-U(n/k)+O(\log^2n/k)$ uniformly in $k$, and for $k\le\log^Bn$ a separate estimate shows $n\,q_k$ is smaller than any power of $\log n$. This step uses the prime number theorem in the form $\sum_{k\le x}\mu(k)=O\bigl(x\exp(-a\sqrt{\log x})\bigr)$; it uses no unproved hypothesis. The same input gives $U(t)\to0$ and the exact integral $\int_1^\infty U(t)\,dt/t=1/(4c)-1$, where $c=G/(3\zeta(2))$.
+\item \emph{Scalar inequality} (Lemma~\ref{lem:scalar}). On each interval $[m,m+1]$ the function $U$ is convex and given by a closed formula in two partial sums. A program in exact integer arithmetic, with outward rational enclosures of the Euler products, verifies $U(m)<3/4$ at every integer $2\le m\le10^6$ and a lower enclosure $U>-3/4$ on every half-integer interval up to $10^6$. For $t\ge10^6$, Ramar\'e's explicit bound $|\sum_{k\le x}\mu(k)/k|\le1/(12\log x)$ for $x\ge687$ \cite{ramare} gives $|U(t)|\le202847/300000<0.68$. Together these cover every real $t\ge1$.
+\end{enumerate}
+The last column of $R_n$ is $e_n$, which yields $n\,r_n(n)\to1$ and hence the matching lower bound in \eqref{eq:intro-conj}.
+
+\subsection*{Spectral consequences}
+Lemma~\ref{lem:matrix} alone, without the scalar certificate, sharpens the estimates of \cite{kline}. Proposition~\ref{prop:cor9} shows $\Lambda_n/n^3\to G/3\approx0.2348$, replacing the factor-of-four sandwich, and combines the exact identity $\Lambda_n\,v_n^\top\muvec_n=v_n(1)$ with the eigenvector asymptotics to obtain $v_n^\top\muvec_n\sim3\sqrt6\,n^{-3}/(\pi G)$. This replaces the $O(n^{-3/2})$ upper bound of Corollary~9 by a positive asymptotic equivalent of order $n^{-3}$. Proposition~\ref{prop:spectrum} bounds the rest of the spectrum by $O(n^2\log n)$.
+
+\subsection*{A cancellation attempt that fails}
+Corollary~9 of \cite{kline} was motivated by the decomposition $\sum_{k\le n}\mu(k)/k=h_n^\top\muvec_n=(v_n^\top h_n)(v_n^\top\muvec_n)+r_n^\top\muvec_n$. Since the first term is now known to be of order $n^{-3}$, one may ask whether the residual correlation $r_n^\top\muvec_n$ can be estimated by other means. Section~\ref{sec:obstruction} shows that the residual can be replaced by its scalar profile with summed error $O(\log^3n/n)$ and that a variation estimate transfers known bounds for the Mertens function. An exact convolution identity then shows that the profile correlation equals $\sum_{k\le n}\mu(k)/k$ itself up to $O(\log n/n)$. The approximation is accurate but circular for this purpose. No new estimate for M\"obius sums is claimed.
+
+\subsection*{Prior work and scope}
+The matrices, the identities $R_n\muvec_n=e_1$ and $Q_n\muvec_n=e_1$, the eigenvalue sandwich, Corollary~9, and the conjecture itself are from \cite{kline}. The totient-sum asymptotic $\sum_{j\le n}\varphi(j)^2\sim cn^3$ is classical. The analytic inputs are the effective Mertens-type bound for $\sum_{k\le x}\mu(k)$, available for example from Lee and Leong \cite{lee}, and Ramar\'e's explicit estimate \cite{ramare}, whose corrigendum \cite{corr} does not affect the theorem used. A bounded literature search found no other resolution of \eqref{eq:intro-conj}; this is a statement about the searched corpus, not a global priority claim.
+
+\subsection*{Evidence and AI assistance}
+The argument, the certificate program, and this exposition were developed with AI assistance under the author's direction. The scalar tail bound was first proposed by one model and re-implemented in exact integer arithmetic by another; the matrix step, the assembled proof, and the certificate were each examined by separate fresh-context model audits, whose reports are preserved in the repository. Such audits are process evidence. They are not peer review, and they do not certify correctness. The certificate is executable and its receipt can be regenerated with \texttt{code/verify\_reproduction.py}; Appendix~\ref{app:files} lists every companion file.
+
+\section{Notation}
+For $1\le j,k\le n$, put
+\[
+ R_n(j,k)=\#\{1\le a\le \lfloor j/k\rfloor:(a,j)=1\},
+ \qquad Q_n=R_n^\top R_n.
+\]
+Equivalently, $R_n=D_n^{-1}T_nD_n$, where $D_n(i,j)=1_{j\mid i}$ and $T_n(i,j)=1_{j\le i}$. Write $\Lambda_n$ for the largest eigenvalue of $Q_n$, and $v_n$ for its positive Euclidean-unit eigenvector. Define
+\[
+ h_n(k)=\frac1k,\quad \muvec_n(k)=\mu(k),\quad
+ \alpha_n=v_n^\top h_n,\quad r_n=h_n-\alpha_nv_n.
+\]
+The matrix $R_n$ is lower triangular with diagonal one. Its first column is $(\varphi(j))_{j\le n}$ and its last column is $e_n$. All entries of $Q_n$ are positive, so the specified Perron vector is well defined. The exact identities from \cite{kline} are
+\begin{equation}\label{eq:original}
+ R_n\muvec_n=e_1,\qquad Q_n\muvec_n=e_1.
+\end{equation}
+Set
+\begin{align*}
+ c&=\frac13\prod_p\left(1-\frac2{p^2}+\frac1{p^3}\right),&
+ G&=\prod_p\left(1-\frac1{p(p+1)}\right)=3c\zeta(2),&
+ \kappa&=\frac3{2G},\\
+ g(a)&=\prod_{p\mid a}\frac p{p+1},&
+ U(t)&=t-\kappa\sum_{a\le t}g(a)\left(1-\frac{a^2}{t^2}\right).&&
+\end{align*}
+Empty products equal one. For $0<t<1$, the same definition gives $U(t)=t$. Throughout, $L=\log(2n)$, $\tau$ is the divisor function, and $M(x)=\sum_{k\le x}\mu(k)$, $m(x)=\sum_{k\le x}\mu(k)/k$ are the Mertens and harmonic M\"obius sums.
+
+\section{The conjecture and its scalar profile}
+\begin{theorem}\label{thm:main}
+Let $v_n$ be the positive unit eigenvector of $Q_n$ corresponding to its largest eigenvalue, and let $h_n=(1,1/2,\ldots,1/n)^\top$. Then
+\begin{equation}\label{eq:conjecture}
+ \lim_{n\to\infty}n\bigl\|h_n-(v_n^\top h_n)v_n\bigr\|_\infty=1.
+\end{equation}
+Write $r_n=h_n-(v_n^\top h_n)v_n$. Moreover, with
+\[
+ I=\int_1^\infty\frac{U(t)}t\,dt=\frac1{4c}-1,
+ \qquad J=\int_1^\infty\frac{U(t)^2}{t^2}\,dt,
+ \qquad \rho=\frac{J-I}{\zeta(2)},
+\]
+one has $nr_n(1)\to\rho$, $|\rho|<1/\zeta(2)$, and, for each fixed $t\ge1$ and any $k_n/n\to1/t$,
+\[
+ nr_n(k_n)\longrightarrow U(t).
+\]
+\end{theorem}
+The proof has a matrix part, an arithmetic profile calculation, and a scalar inequality. We give their statements and the principal estimates, retaining the exact certificate as a companion computation.
+
+\subsection{Uniform matrix approximation}
+Suppress subscripts and put
+\[
+ a_j=\varphi(j),\quad S=\|a\|_2^2,\quad H=\|h\|_2,
+ \quad E=R-ah^\top,\quad b=E^\top a,\quad q=b/S.
+\]
+\begin{lemma}\label{lem:matrix}
+There are vectors $d,e$ such that
+\begin{align}
+ v/v_1&=h+q+d,& \|d\|_2&=O(n^{-3/2}L^3),\label{eq:d}\\
+ r&=r_1h-q+e,& \|e\|_2&=O(n^{-3/2}L^3),\label{eq:e}\\
+ r_1&=\frac{h^\top q+\|q\|_2^2}{H^2}+o(n^{-1}),&
+ r_1&=O(L^{5/2}/n).\label{eq:r1}
+\end{align}
+Also $S=cn^3+O(n^2L^2)$ and
+\[
+ \Lambda=SH^2\{1+O(n^{-1/2}L^{1/2})\},\qquad
+ v=h/H+O_2(n^{-1/2}L^{1/2}).
+\]
+\end{lemma}
+\begin{proof}[Proof outline with the controlling estimates]
+The divisor expansion gives $|E(j,k)|\le\min(\tau(j),j/k)$, whence
+\[
+ \|E\|_F=O(nL^{1/2}),\quad
+ \|Eh\|_2=O(n^{1/2}L^{5/2}),\quad
+ \|b\|_2=O(n^{5/2}L^{1/2}).
+\]
+For the first bound, sum $\min(\tau(j)^2,j^2/k^2)$ over $k$ and then use $\sum_{j\le n}j\tau(j)=O(n^2L)$. For the second, use $|(Eh)_j|\le\tau(j)\sum_{k\le n}1/k$ and $\sum_{j\le n}\tau(j)^2=O(nL^3)$. Rank-one perturbation of $ah^\top$ gives the displayed first-order spectral estimates. In particular $\|Ev\|_2=O(n^{1/2}L^{5/2})$.
+
+Column one of $E$ is zero. Subtracting $h_k$ times the first coordinate of the eigen-equation from its $k$th coordinate gives
+\[
+ \Lambda v_1=S\alpha+b^\top v,\qquad
+ \Lambda(v_k-v_1h_k)=\alpha b_k+(E^\top Ev)_k.
+\]
+Thus $\alpha/(\Lambda v_1)=S^{-1}(1+O(L^{5/2}/n))$, and the second identity gives \eqref{eq:d}. If $z=q+d$, the exact projection formula is
+\[
+ r_1=\frac{h^\top z+\|z\|_2^2}{H^2+2h^\top z+\|z\|_2^2}.
+\]
+Here $h^\top q=O(L^{5/2}/n)$ and $\|q\|_2^2=O(L/n)$. Expansion gives \eqref{eq:e}--\eqref{eq:r1}. The totient-square estimate follows by expanding $\varphi(j)^2/j^2$ as a divisor sum; its squarefree coefficient has prime value $-2/p+1/p^2$.
+\end{proof}
+
+\subsection{Arithmetic estimates}
+\begin{lemma}\label{lem:arithmetic}
+Uniformly for $1\le k\le n$,
+\begin{equation}\label{eq:qprofile}
+ nq_k=-U(n/k)+O(L^2/k).
+\end{equation}
+There are absolute effective $A_0,a_0>0$ such that
+\begin{equation}\label{eq:small}
+ |b_k(n)|/n^2\le A_0k^5e^{-a_0\sqrt{\log(2n)}}.
+\end{equation}
+Consequently, for each fixed $A,B>0$,
+$\max_{k\le L^B}|nq_k|=O_{A,B}(L^{-A})$.
+Finally, for some $a_1>0$,
+\begin{equation}\label{eq:decay}
+ U(t)=O(e^{-a_1\sqrt{\log t}}),\qquad
+ \int_1^\infty U(t)\,\frac{dt}{t}=\frac1{4c}-1.
+\end{equation}
+\end{lemma}
+\begin{proof}[Derivation and arithmetic inputs]
+For \eqref{eq:qprofile}, divisor expansion first gives
+\[
+ \sum_{j\le y,(j,a)=1}\varphi(j)
+ =\frac{y^2g(a)}{2\zeta(2)}+O(y\tau(a)\log(2y)).
+\]
+Interchange the count index in
+$\sum_{j\le n}\varphi(j)R(j,k)=\sum_{a\le n/k}\sum_{ka\le j\le n,(a,j)=1}\varphi(j)$,
+and use the estimate for $S$.
+
+For \eqref{eq:small}, the analytic input is the classical effective bound
+$M(x)=O(xe^{-a\sqrt{\log(2x)}})$; see the source locators in Appendix~\ref{app:files}. Put $f_k(u)=-\{u/k\}$. Exactly,
+\[
+ b_k(n)=\sum_{j\le n}\varphi(j)(\mu*f_k)(j).
+\]
+Let $\mathcal S_k$ be the positive integers supported on primes dividing $k$, and $\mu_k(u)=\mu(u)1_{(u,k)=1}$. The identity $\mu_k=\mu*1_{\mathcal S_k}$, split at $\sqrt x$, and the moments
+\[
+ \sum_{s\in\mathcal S_k}s^{-1}\le k,\qquad
+ \sum_{s\in\mathcal S_k}s^{-1/2}\le k^2
+\]
+give $M_k(x)\ll k^2x e^{-a'\sqrt{\log(2x)}}$. For a nonprincipal character $\chi$ modulo $k$, the hyperbola identity for $\mu_k*\chi$ uses only this bound and $|\sum_{u\le y}\chi(u)|\le k$. The principal convolution is the identity element, handled separately.
+
+Multiplication by $\varphi(u)/u$ is a further convolution with prime-power coefficients $(1-\chi(p))/p$ for $p\nmid k$, and zero for $p\mid k$. Their absolute $3/4$-moment is bounded by
+\[
+ \prod_p\left(1+\frac2{p(p^{3/4}-1)}\right)<\infty.
+\]
+Another split at $\sqrt x$ and partial summation therefore give, uniformly in $k,\chi,x$,
+\[
+ \sum_{u\le x}\varphi(u)(\mu_k*\chi)(u)
+ \ll k^2x^2e^{-a''\sqrt{\log(2x)}},
+\]
+with crude bound $O(kx^2)$. To retain non-unit residues, write $j=su$ with $s\in\mathcal S_k$, $(u,k)=1$, and expand
+$\sum_{d\mid s}\mu(d)f_k((s/d)u)$ in characters of the unit group. There are at most $k$ coefficients, each of magnitude at most $k$. The range $s\le\sqrt n$ costs at most $k^5e^{-a_0\sqrt{\log(2n)}}$ after division by $n^2$; the remaining range costs at most $k^5n^{-1/4}$. This proves \eqref{eq:small}, shrinking $a_0$. The companion note \texttt{proof/A06-uniform-small-coordinates.md} gives the uniform constants and all small-argument details.
+
+For \eqref{eq:decay}, set
+\[
+ \eta(d)=\frac{\mu(d)}{\prod_{p\mid d}(p+1)},\qquad
+ D_0(y)=\frac{2y}3-\sum_{a\le y}(1-a^2/y^2).
+\]
+Then $g=1*\eta$ and
+\begin{equation}\label{eq:kernel}
+ U(t)=\kappa\sum_{d\ge1}\eta(d)D_0(t/d),\qquad
+ \eta=(\mu/\mathrm{id})*\beta,
+\end{equation}
+where $\beta(p^r)=1/[p^r(p+1)]$ is nonnegative, $\sum\beta=\zeta(2)$, and $\sum\beta(d)d^\delta<\infty$ for $0<\delta<1$. The kernel is bounded, equals $2y/3$ below one, and is $1/2+O(1/y)$ above one; its variation on $(0,T)$ is $O(\log(2T))$. Partial summation using the classical bound for $m(x)$, followed by the positive $\beta$ convolution, proves the decay. Thus this proof uses known prime-number-theorem cancellation.
+
+For $0<s<1$, finite summation and integration give
+\[
+ \int_0^\infty D_0(y)y^{-s-1}\,dy=\frac{-2\zeta(s)}{s(s+2)}.
+\]
+Writing $B(s)=\sum\beta(d)d^{-s}$, absolute interchange in \eqref{eq:kernel} yields
+\[
+ \int_0^\infty U(t)t^{-s-1}\,dt
+ =\frac{-2\kappa\zeta(s)B(s)}{s(s+2)\zeta(1+s)}.
+\]
+The decay just proved permits $s\downarrow0$ by dominated convergence; the result is $\kappa\zeta(2)/2$. Subtracting the integral over $(0,1)$, which equals one, gives \eqref{eq:decay}.
+\end{proof}
+
+\subsection{The scalar bound and completion}
+\begin{lemma}[Computer-assisted scalar inequality]\label{lem:scalar}
+For every real $t\ge1$, $|U(t)|\le1$, with equality only at $t=1$.
+\end{lemma}
+\begin{proof}[Analytic tail and finite certificate]
+Let $P(u)=\sum_{d\le u}\eta(d)$ and $\epsilon(t)=\sup_{u\ge t}|P(u)|$. Bernoulli polynomial expansion of $D_0$ gives
+\[
+ D_0(y)=\frac12+\frac{B_2(\{y\})}{y}-\frac{B_3(\{y\})}{3y^2}
+ \quad(y\ge1).
+\]
+Writing $F(y)=B_2(\{y\})-B_3(\{y\})/(3y)$, one has
+$|F|\le K_0:=1/6+\sqrt3/108<183/1000$. Splitting \eqref{eq:kernel} at $d=t$ gives
+\[
+ \frac{U(t)}\kappa=-\frac{P(t)}6+\frac{2t}3\int_t^\infty\frac{P(u)}{u^2}\,du
+       +\frac1t\sum_{d\le t}d\eta(d)F(t/d).
+\]
+Since $|d\eta(d)|\le1$,
+\[
+ |U(t)|\le\kappa\{5\epsilon(t)/6+K_0\}.
+\]
+Ramar\'e's Theorem 1.2~\cite{ramare} gives $|m(x)|\log x\le1/12$ for $x\ge687$, hence $\sup_{x\ge1000}|m(x)|\le1/50$. The global bound $|m(x)|\le1$ follows from $\sum_{d\le x}\mu(d)\lfloor x/d\rfloor=1$. Using $P(u)=\sum_{e\le u}\beta(e)m(u/e)$ therefore gives
+\[
+ \epsilon(t)\le\frac{\zeta(2)}{50}+\sqrt{1000/t}\,E_{1/2},
+ \qquad E_{1/2}=\sum_e\beta(e)\sqrt e.
+\]
+The certificate encloses $\kappa<213/100$ and $E_{1/2}<4$. With $\zeta(2)<5/3$, for $t\ge10^6$ this proves
+\[
+ |U(t)|<\frac{213}{100}\left[\frac56\left(\frac1{30}+\frac{16}{125}\right)+\frac{183}{1000}\right]
+ =\frac{202847}{300000}<0.68.
+\]
+
+On $[m,m+1]$, put $A_m=\sum_{a\le m}g(a)$ and $B_m=\sum_{a\le m}a^2g(a)$. Exactly,
+\[
+ U(t)=t-\kappa A_m+\kappa B_m/t^2,\qquad U''(t)=6\kappa B_m/t^4>0.
+\]
+The integer certificate uses outward intervals with denominator $10^{30}$, a smallest-prime-factor sieve for $g$, and rigorously bounded Euler products. It verifies $U(m)<3/4$ at all $999{,}999$ integer endpoints $2\le m\le10^6$; $U(1)=1$ is exact. Convexity covers the upper bound between endpoints. For each of $1{,}999{,}998$ half-intervals $[a,b]$, it verifies the lower enclosure
+$a-\kappa A_m+\kappa B_m/b^2>-3/4$ with outward rounding. These are integer assertions, not floating-point samples. Appendix~\ref{app:files} identifies the executable, receipt and reproduction command. The finite checks and analytic tail exhaust all real $t\ge1$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Let $K_n=\lceil L^3\rceil$. Equations \eqref{eq:qprofile}--\eqref{eq:decay}, with the small-coordinate estimate, imply
+\[
+ nh^\top q\longrightarrow-I,\qquad n\|q\|_2^2\longrightarrow J.
+\]
+For the first limit, the small coordinates contribute $o(1)$, the summed error above $K_n$ is $O(L^2/K_n)$, and the main sum is $-\sum_{k\ge K_n}U(n/k)/k$. The decay in \eqref{eq:decay} supplies an integrable envelope at zero after $x=k/n$. For the second limit, the bounded continuous function $U(1/x)^2$ extends to zero with value zero. Equation \eqref{eq:r1} now gives $nr_1\to\rho$.
+
+The Euler factors show
+\[
+ \frac18<\frac{40}{3\pi^4}<c\le\frac5{24}<\frac14.
+\]
+Hence $0<I<1$. Lemma~\ref{lem:scalar} gives $0\le J<1$, so $|\rho|<1/\zeta(2)$. Uniformly in the two exhaustive coordinate ranges,
+\[
+ nr_k=\begin{cases}
+ \rho/k+o(1),&k<K_n,\\
+ U(n/k)+o(1),&k\ge K_n.
+ \end{cases}
+\]
+The upper bound in \eqref{eq:conjecture} follows. The last column of $R$ is $e_n$, so $q_n=\varphi(n)/S-1/n$ and \eqref{eq:e} gives $nr_n\to1$, proving the lower bound. The moving-coordinate assertion follows from continuity of $U$ and \eqref{eq:qprofile}.
+\end{proof}
+
+\section{Sharpening the earlier spectral results}\label{sec:spectral}
+These consequences require Lemma~\ref{lem:matrix}, but not the scalar certificate or the full conjecture.
+\begin{proposition}[Exact correlation and sharp asymptotic]\label{prop:cor9}
+For every $n\ge1$,
+\begin{equation}\label{eq:exactcor}
+ 0<v_n^\top\muvec_n=\frac{v_n(1)}{\Lambda_n}
+ \le\frac1{\sum_{j\le n}\varphi(j)^2}.
+\end{equation}
+Moreover,
+\begin{align}
+ \frac{\Lambda_n}{n^3}&\longrightarrow\frac G3,\label{eq:lambda}\\
+ v_n^\top\muvec_n&\sim\frac{1}{c\zeta(2)^{3/2}}n^{-3}
+ =\frac{3\sqrt6}{\pi G}n^{-3},\label{eq:sharp}\\
+ \alpha_n(v_n^\top\muvec_n)&\sim\frac3G n^{-3}.\label{eq:scaled}
+\end{align}
+\end{proposition}
+\begin{proof}
+Symmetry and \eqref{eq:original} give
+$\Lambda_n v_n^\top\muvec_n=v_n^\top Q_n\muvec_n=v_n(1)>0$.
+The Rayleigh quotient at $e_1$ gives $\Lambda_n\ge S$, and $v_n(1)\le1$, proving \eqref{eq:exactcor}. Lemma~\ref{lem:matrix} gives $v_n(1)\to1/\sqrt{\zeta(2)}$, $\alpha_n\to\sqrt{\zeta(2)}$, and $\Lambda_n\sim c\zeta(2)n^3$. Substitution proves the claims.
+\end{proof}
+Numerically, the leading constants are approximately
+\[
+ G/3=0.2348140670,\qquad
+ \frac{3\sqrt6}{\pi G}=3.3204859112,\qquad
+ \frac3G=4.2586886415.
+\]
+Thus the $n^{-3/2}$ upper bound of Corollary~9 in \cite{kline} can be replaced by a positive asymptotic equivalent of order $n^{-3}$. Even the finite inequality \eqref{eq:exactcor}, without the conjecture or perturbation analysis, already gives $O(n^{-3})$.
+
+\begin{proposition}[Remainder of the spectrum]\label{prop:spectrum}
+Order the eigenvalues as $0<\lambda_{1,n}\le\cdots\le\lambda_{n,n}=\Lambda_n$. Then
+\[
+ \sum_{i<n}\lambda_{i,n}=O(n^2\log(2n)),\qquad
+ \lambda_{n-1,n}=O(n^2\log(2n)).
+\]
+For $n\ge2$, $\Lambda_n/\lambda_{n-1,n}\gg n/\log(2n)$ as $n\to\infty$.
+\end{proposition}
+\begin{proof}
+Put $u=h/H$. Since $R(I-uu^\top)=E(I-uu^\top)$,
+\begin{align*}
+ \tr Q-\Lambda&\le\tr Q-u^\top Qu
+ =\|R(I-uu^\top)\|_F^2\\
+ &\le\|E\|_F^2=O(n^2L).
+\end{align*}
+All eigenvalues are positive. The gap bound follows from \eqref{eq:lambda}.
+\end{proof}
+\begin{remark}
+These statements sharpen the bounds displayed in \cite{kline}. No comparison with all subsequent literature is asserted, and no asymptotic equivalent for the second eigenvalue is established.
+\end{remark}
+
+\section{What H\"older transfers to the harmonic M\"obius sum}
+Theorem~\ref{thm:main} and squarefree counting give
+\[
+ \|r_n\|_\infty=\frac{1+o(1)}n,\qquad
+ \|\muvec_n\|_1=\frac n{\zeta(2)}+O(\sqrt n).
+\]
+Consequently H\"older's inequality yields
+\begin{equation}\label{eq:holder}
+ |r_n^\top\muvec_n|\le\frac1{\zeta(2)}+o(1),\qquad
+ |m(n)|\le\frac6{\pi^2}+o(1).
+\end{equation}
+The original Corollary 9 alone suffices to dispose of the first term in \eqref{eq:split}, because $\alpha_n\le\|h_n\|_2\le\sqrt{\zeta(2)}$. Proposition~\ref{prop:cor9} sharpens that term to $(3/G+o(1))n^{-3}$ but does not improve the limiting constant in \eqref{eq:holder}. This constant is approximately $0.607927$; it is not an improvement on known bounds for $m(n)$ that tend to zero.
+
+\section{A cancellation attempt and its exact obstruction}\label{sec:obstruction}
+Corollary 9 of \cite{kline} bounds $|v_n^\top\muvec_n|$ by approximately $2.6467n^{-3/2}(1+o(1))$. Since $h_n$ is close to the scaled vector $\alpha_nv_n$, it is natural to ask whether rapid decay of the latter vector's M\"obius correlation forces rapid decay of
+\[
+ m(n)=h_n^\top\muvec_n=\sum_{k\le n}\frac{\mu(k)}k.
+\]
+The exact decomposition is
+\begin{equation}\label{eq:split}
+ m(n)=\alpha_n(v_n^\top\muvec_n)+r_n^\top\muvec_n.
+\end{equation}
+The issue is therefore a signed correlation of the residual, not merely its size. This section quantifies that distinction.
+\subsection{Summing the profile approximation}
+Define $F_n(x)=U(n/x)/n$ for $1\le x\le n$ and
+$\mathcal T_n=\sum_{k\le n}\mu(k)F_n(k)$.
+\begin{proposition}\label{prop:transfer}
+One has
+\begin{equation}\label{eq:summed}
+ (1-r_n(1))m(n)=\mathcal T_n+O(L^3/n).
+\end{equation}
+For every integer $1\le K<n$, set
+$\delta_K=\max_{K\le j\le n}|M(j)|/j$ and $D=1+2\kappa$. For all sufficiently large $n$,
+\begin{equation}\label{eq:transfer}
+ |m(n)|\le
+ \frac{K/n+\delta_K\{1+K/n+D\log(n/K)\}+O(L^3/n)}{1-r_n(1)}.
+\end{equation}
+Here the $O$ term may be taken as a nonnegative bound with an absolute implied constant.
+\end{proposition}
+\begin{proof}
+Equations \eqref{eq:e} and \eqref{eq:qprofile} give
+\[
+ r_n^\top\muvec_n=r_n(1)m(n)+\mathcal T_n+O(L^3/n).
+\]
+Indeed the coordinate errors sum to $O((L^2/n)\sum_{k\le n}1/k)$, and Cauchy--Schwarz gives $|e^\top\muvec_n|\le\sqrt n\|e\|_2=O(L^3/n)$. Combine with \eqref{eq:split} and \eqref{eq:scaled} to obtain \eqref{eq:summed}.
+
+Away from integers,
+\[
+ U'(t)=1-\frac{2\kappa}{t^3}\sum_{a\le t}a^2g(a).
+\]
+Since $0<g(a)\le1$ and $\sum_{a\le t}a^2\le t^3$, $|U'(t)|\le D$. Continuity at integers makes $F_n$ absolutely continuous on its interval, with $|F_n'(x)|\le D/x^2$. Also $|F_n|\le1/n$ and $F_n(n)=1/n$.
+
+Bound the first $K$ terms of $\mathcal T_n$ absolutely by $K/n$. For the remainder, the exact discrete summation-by-parts identity is
+\begin{align*}
+ \sum_{k=K+1}^n\mu(k)F_n(k)
+ &=M(n)F_n(n)-M(K)F_n(K+1)\\
+ &\quad+\sum_{j=K+1}^{n-1}M(j)\{F_n(j)-F_n(j+1)\}.
+\end{align*}
+Its boundary terms are bounded by $\delta_K(1+K/n)$. The remaining terms have total at most
+\[
+ D\delta_K\sum_{j=K+1}^{n-1}j\int_j^{j+1}x^{-2}\,dx
+ =D\delta_K\sum_{j=K+1}^{n-1}\frac1{j+1}
+ \le D\delta_K\log(n/K).
+\]
+Finally $r_n(1)=O(1/n)$, so the denominator is positive for large $n$.
+\end{proof}
+For fixed $T>1$, take $K=\lfloor n/T\rfloor$. If $M(x)=o(x)$, \eqref{eq:transfer} gives $\limsup|m(n)|\le1/T$, and then $m(n)\to0$. A quantitative input of the form $M(x)/x=O(e^{-a\sqrt{\log x}})$ similarly yields $m(n)=O(e^{-b\sqrt{\log n}})$ for some $b>0$, by taking $K$ of order $n e^{-b_0\sqrt{\log n}}$ with $b_0>0$ small. This recovers the type of decay supplied by the input, rather than improving it. The proof of the profile estimates already uses classical cancellation, so this is not an independent proof of the prime number theorem.
+
+\subsection{An exact convolution identity}
+\begin{proposition}[The profile retains the original sum]\label{prop:obstruction}
+For every positive integer $n$,
+\begin{equation}\label{eq:obstruction}
+ \mathcal T_n=m(n)-\frac\kappa n\sum_{b\le n}\eta(b)
+                   \left(1-\frac{b^2}{n^2}\right).
+\end{equation}
+In particular,
+\begin{equation}\label{eq:close}
+ |\mathcal T_n-m(n)|\le\frac{\kappa(1+\log n)}n.
+\end{equation}
+Before passing to the scalar profile, the exact matrix correction satisfies
+\begin{equation}\label{eq:qexact}
+ q^\top\muvec_n=\frac1S-m(n).
+\end{equation}
+\end{proposition}
+\begin{proof}
+Since $g=1*\eta$, Dirichlet convolution gives $\mu*g=\eta$. Expanding the finite definition of $U$ and grouping by $b=ak$ yields
+\begin{align*}
+ \mathcal T_n
+ &=m(n)-\frac\kappa n\sum_{ak\le n}\mu(k)g(a)
+                  \left(1-\frac{a^2k^2}{n^2}\right)\\
+ &=m(n)-\frac\kappa n\sum_{b\le n}\eta(b)(1-b^2/n^2).
+\end{align*}
+Now $|\eta(b)|\le1/b$, which proves \eqref{eq:close}. Finally \eqref{eq:original} gives $E\muvec_n=e_1-a m(n)$; multiplying by $a^\top/S$ and using $a_1=1$ proves \eqref{eq:qexact}.
+\end{proof}
+\begin{remark}[What the attempt establishes]
+The loss in H\"older is real: unsigned summation destroys cancellation. The matrix approximation is accurate enough to survive signed summation with error $O(L^3/n)$, and its scalar profile has controlled variation. Nevertheless, the resulting main term equals $m(n)$ itself up to $O(\log n/n)$. Thus substituting the present approximation does not supply a new estimate for that main term. This is an obstruction to this particular transfer argument, not an impossibility theorem for spectral methods. A stronger conclusion would require an additional estimate for the signed correlation or another arithmetic mechanism. No such improvement is claimed here.
+\end{remark}
+
+\appendix
+\section{Companion proofs, certificate and provenance}\label{app:files}
+All paths are relative to the repository root. The component notes below were frozen before the final examination; status labels inside them are historical, and \texttt{audit/campaign/FINAL-ADJUDICATION.md} records their completed review.
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}\toprule
+Material & Repository file\\\midrule
+Matrix estimates & \texttt{proof/A04-uniform-linearization.md}\\
+Profile calculation & \texttt{proof/A05-arithmetic-roadmap.md}\\
+Uniform small coordinates & \texttt{proof/A06-uniform-small-coordinates.md}\\
+Decay and Mellin calculation & \texttt{proof/A07-profile-decay-and-integral.md}\\
+Uniform integration & \texttt{proof/A08-reduction-theorem.md}\\
+Scalar proof & \texttt{proof/A09-scalar-certificate.md}\\
+Spectral consequences & \texttt{proof/A11-spectral-consequences.md}\\
+Cancellation attempt & \texttt{proof/A12-mobius-correlation-attempt.md}\\
+Assembled proof packet & \texttt{proof/proof-bundle.md}\\
+Certificate executable & \texttt{code/certify\_scalar.py}\\
+Recorded certificate receipt & \texttt{results/scalar-certificate.json}\\
+Reproduction runner & \texttt{code/verify\_reproduction.py}\\
+Examination records & \texttt{audit/campaign/}\\\bottomrule
+\end{tabular}
+\end{center}
+The certificate program's SHA-256 is
+\begin{quote}\small\ttfamily
+08395c08e2be59a5a4e97d234d8af032\\
+ffa7f19d9d383e77723721ba9d551587
+\end{quote}
+The line break is typographic; the digest is one string. From the repository root, the reproduction command is
+\begin{quote}\ttfamily python3 code/verify\_reproduction.py\end{quote}
+It checks the frozen inputs against \texttt{audit/frozen-artifacts.json} and reruns the certificate in a temporary directory, using only the Python standard library. The computation is part of Lemma~\ref{lem:scalar}; the PDF alone does not replace its executable evidence.
+
+The effective Mertens estimate used in the arithmetic argument is available, for example, from Lee and Leong~\cite{lee}, Theorem 1.1, equation (9), with logarithmic factors absorbed by decreasing the exponential constant. The scalar tail uses Ramar\'e~\cite{ramare}, Theorem 1.2, printed page 1361. The corrigendum~\cite{corr} does not change that theorem.
+
+This document makes no claim of human refereeing or proof-assistant verification. The release, archive, and citation status of this version is recorded in the repository's \texttt{README.md} and \texttt{ADMISSION.md}.
+
+\begin{thebibliography}{9}
+\bibitem{kline} J. Kline, Unital sums of the M\"obius and Mertens functions, \emph{Journal of Integer Sequences} \textbf{23} (2020), Article 20.8.1. Original article and source: \url{https://cs.uwaterloo.ca/journals/JIS/VOL23/Kline/kline4.html}.
+\bibitem{ramare} O. Ramar\'e, Explicit estimates on several summatory functions involving the Moebius function, \emph{Mathematics of Computation} \textbf{84} (2015), 1359--1387. \url{https://ramare-olivier.github.io/Maths/mcom2914.pdf}.
+\bibitem{corr} O. Ramar\'e, Corrigendum to the preceding article (2019). \url{https://ramare-olivier.github.io/Maths/mcom3449-corrigendum.pdf}.
+\bibitem{lee} E. S. Lee and N. Leong, \emph{New explicit bounds for Mertens function and the reciprocal of the Riemann zeta-function}, arXiv:2208.06141v5. \url{https://arxiv.org/abs/2208.06141v5}.
+\end{thebibliography}
+\end{document}

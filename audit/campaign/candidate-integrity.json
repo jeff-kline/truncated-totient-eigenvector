@@ -1,0 +1,21 @@
+{
+  "status": "Proof candidate; full audit pending. Hashes establish identity, not correctness.",
+  "sha256": {
+    "ref/kline4.tex": "b180b02eda7610bc8f732dd2dbe4e65ca93ab0584b2b977163cb35bbc6682800",
+    "ref/ramare-2015.pdf": "dc266dce8eba0af1b920a58b03b948f30178c5a9c4c735b0858f5cd177265b96",
+    "ref/ramare-2019-corrigendum.pdf": "893d9f7d96c3dc7d163fa46e0afd7b6adeb59bc9a21ee4c782c4fda677d3113c",
+    "notes/A04-uniform-linearization.md": "2086e36776254025e59e97433fd7c4ca3f7ea3fc85a04b97df25cd05ee8776ca",
+    "notes/A05-arithmetic-roadmap.md": "98949ddfbcc1561f1478a4492929ed8c9abc2dba521fa1cbb50f826fda7e499e",
+    "notes/A06-uniform-small-coordinates.md": "c3b96f19c20b2b5d359eedd2b48148776100fb2d98dbd41e88af4547dada0ffd",
+    "notes/A07-profile-decay-and-integral.md": "81e0bf8b085d05144cf194a7f5cb8a5e041954093098db99af9e077191983d07",
+    "notes/A08-reduction-theorem.md": "0c10dadaee4edb87fc2015e19316074a2b6ac2a9059df708a79da919eb8098a4",
+    "notes/A09-scalar-certificate.md": "796ceb3c9d5fc5b814a650c5afd5a70866b4033527923f7d8a5f190e08a44bbb",
+    "code/certify_scalar.py": "08395c08e2be59a5a4e97d234d8af032ffa7f19d9d383e77723721ba9d551587",
+    "results/scalar-certificate.json": "4ed5069772c238a158cc850e91f361fa3fa7e454e40860a70b498ce9fa5b9dc1",
+    "review/R01-initial.md": "473478306181197f3dabee600f8062b51b5805b9a635d85e1e5f82c4fd1aa94e",
+    "review/R02-proof-audit.md": "34a689391886ff19cbfd2cd0360e95b45887e04e20c9bb60d0017f9d0e925932",
+    "review/CLAUDE-01-received.txt": "53dc1b200159a122164080c39fd528e2054934b71a7aaa6c25d8d46aa9e2a8e6",
+    "assignments/CLAUDE-02-initial.md": "26fd11f7ac3936f7b1ad730942733cda9cc1563bee0f507c0848d1fb8d888723",
+    "assignments/CLAUDE-02-proof-bundle.md": "bf236d513b5c6d6505c0ddd0255b6f20817d5b1c758b9039194b9006510ed0af"
+  }
+}
