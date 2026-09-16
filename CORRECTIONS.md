@@ -64,5 +64,6 @@ This file records every public version. No public version exists yet.
 - 2026-09-15: Before publication, the README's mathematics was converted from
   ASCII to rendered LaTeX. The tag `v0.1.0` at
   `8e22b2b3609e123c0395711b5b35199febafc536` remains on the private
-  repository and will be retracted and recreated once prepublication review
-  is finished.
+  repository and was retracted and recreated, at the commit carrying this
+  entry, when prepublication review finished on 2026-09-15. The repository
+  was then made public. No public tag has ever been moved.
