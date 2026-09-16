@@ -56,5 +56,8 @@ This file records every public version. No public version exists yet.
   annotated tag `v0.1.0` at the earlier commit
   `12cb7a0db8f45d57229a59dcd2f7dca05356fe5a` had been pushed to the private
   repository with no GitHub Release, archive, or DOI; it was retracted before
-  any publication and recreated at the revised commit. No public tag has ever
-  been moved.
+  any publication and recreated at the revised commit. That second tag, at
+  `910d4627a67d8b5a80040e80643b991d831c2788`, was found by the tagged-state
+  audit to carry a stale `MANIFEST.sha256` and was likewise retracted before
+  any publication and recreated at the corrected commit. No public tag has
+  ever been moved.
