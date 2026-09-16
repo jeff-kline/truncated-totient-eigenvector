@@ -49,3 +49,12 @@ This file records every public version. No public version exists yet.
   than the conjecture's date. The abstract, introduction, and README were
   rewritten for plainness. No mathematical statement changed. Gate A1 was
   reopened for a prose-quality audit.
+- 2026-09-15: Before publication, the abstract, introduction, Section 3
+  lead-in, Section 4, and README were revised to display the conjectured
+  limit and to name Proposition 8 and Corollary 9 of the 2020 paper beside
+  the asymptotics that replace them. No mathematical statement changed. An
+  annotated tag `v0.1.0` at the earlier commit
+  `12cb7a0db8f45d57229a59dcd2f7dca05356fe5a` had been pushed to the private
+  repository with no GitHub Release, archive, or DOI; it was retracted before
+  any publication and recreated at the revised commit. No public tag has ever
+  been moved.
