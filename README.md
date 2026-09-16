@@ -50,8 +50,9 @@ form `M(x) = O(x exp(-a sqrt(log x)))` for the Mertens function
 `phi_n h_n^T` plus an error small enough for first-order perturbation theory.
 An arithmetic part shows the resulting correction to `h_n` has the profile
 `U(n/k)`; this is where Möbius cancellation enters. A scalar part proves
-`|U(t)| <= 1`: an exact integer program checks it for `1 <= t <= 10^6`, with
-every real constant replaced by an outward-rounded rational interval, and
+`|U(t)| <= 1`: an exact integer program checks it for `1 <= t <= 10^6`, using
+convexity and monotone enclosures on each unit interval, with every real
+constant replaced by an outward-rounded rational interval, and
 Ramaré's bound gives `|U(t)| <= 202847/300000 < 0.68` beyond `10^6`.
 
 **Also proved, from the matrix part alone.**
@@ -65,12 +66,12 @@ Ramaré's bound gives `|U(t)| <= 202847/300000 < 0.68` beyond `10^6`.
 
 ## What is not claimed
 
-One might hope to estimate the harmonic Möbius sum `m(n) = sum mu(k)/k` by
-replacing `h_n` with this eigenvector approximation. An exact identity shows
-why that fails: the profile correlation `sum_k mu(k) U(n/k) / n` equals
+Since `m(n) = sum_{k <= n} mu(k)/k = h_n^T mu_n`, one might hope to estimate
+`m(n)` by replacing `h_n` with its projection onto `v_n`. An exact identity
+shows why that fails: the profile correlation `sum_k mu(k) U(n/k) / n` equals
 `m(n)` up to `O(log n / n)`. The paper records this obstruction. **No new
 estimate for Möbius sums, the Mertens function, or the prime number theorem
-is claimed.** No global novelty or priority claim is made. A bounded
+is claimed.** No priority claim is made. A bounded
 literature search, recorded in [audit/PRIOR_ART.md](audit/PRIOR_ART.md),
 found no other resolution of the conjecture and no earlier determination of
 the constants above.
@@ -115,10 +116,10 @@ notes.
   records their completed review.
 - [code/certify_scalar.py](code/certify_scalar.py), the exact integer
   certificate, and [results/scalar-certificate.json](results/scalar-certificate.json),
-  its frozen receipt. The program is frozen by the SHA-256 recorded in the
-  receipt and the paper, so its docstring still names its interpretation note
-  by the historical path `notes/A09-scalar-certificate.md`, now
-  [proof/A09-scalar-certificate.md](proof/A09-scalar-certificate.md).
+  its frozen receipt. Its docstring names the interpretation note by its old
+  path `notes/A09-scalar-certificate.md`; the note now lives at
+  [proof/A09-scalar-certificate.md](proof/A09-scalar-certificate.md). The
+  program is frozen by hash, so the path was left as is.
 - [code/verify_reproduction.py](code/verify_reproduction.py) and
   [audit/frozen-artifacts.json](audit/frozen-artifacts.json), the
   reproduction runner and the manifest of frozen files it checks.

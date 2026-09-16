@@ -133,6 +133,26 @@ Findings were integrated by the root agent; no auditor edited the tree.
   the certificate docstring (rejected as an edit; documented instead, since
   the program is frozen by the digest cited in the paper and receipt).
 
+## 2026-09-15 — release: cold prose-quality lane after the retitle
+
+- Auditor type: process-separated fresh-context AI on the frontier tier,
+  briefed on writing quality only, with the standard's audience paragraph and
+  an admitted README as the style reference. Ran on commit
+  `b77e7b97a70305ea6426a7e00a7614bc3c8b489f`.
+- Grades: title good, abstract good, introduction good, README good.
+  Verdict PASS for the audience standard.
+- Findings applied: the abstract now names the author's 2020 paper, states
+  the result in its own sentence, glosses the Gram matrix, describes the
+  moving-coordinate limit correctly, and explains the failed cancellation
+  attempt through `m(n) = h_n^T mu_n`; the small-coordinate bound is stated
+  as `O(log^-A n)`; the certificate sentence explains how endpoint checks and
+  half-interval enclosures cover every real `t >= 1`; the lower bound moved
+  next to the main result; the README's obstruction paragraph, docstring
+  note, and "global novelty" phrase were rewritten.
+- Finding corrected rather than applied: the lane's suggested wording
+  attributed the half-interval lower bound to convexity; the certificate uses
+  monotone enclosures there, and the prose now says so.
+
 ## Open audits
 
 - Candidate-state mechanical audit on the clean integrated tree
