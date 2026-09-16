@@ -1,6 +1,8 @@
 # Corrections, withdrawals, and supersession
 
-This file records every public version. No public version exists yet.
+This file records every public version. Version `0.1.0` is preserved by an
+immutable Git tag, GitHub Release, and Zenodo archive under version DOI
+[10.5281/zenodo.22783896](https://doi.org/10.5281/zenodo.22783896).
 
 ## Policy
 
@@ -67,3 +69,14 @@ This file records every public version. No public version exists yet.
   repository and was retracted and recreated, at the commit carrying this
   entry, when prepublication review finished on 2026-09-15. The repository
   was then made public. No public tag has ever been moved.
+- 2026-09-16: Published GitHub Release `v0.1.0` from the immutable tag at
+  commit `0746f6df69cc7c7b551ef47dffbd8436f0c1a1aa`. Zenodo archived the pinned GitHub tag zipball under
+  version DOI `10.5281/zenodo.22783896` and concept DOI `10.5281/zenodo.22783895`. The downloaded Zenodo file
+  `jeff-kline/truncated-totient-eigenvector-v0.1.0.zip` is byte-identical to
+  the pinned zipball at 468,629 bytes, SHA-256 `b0b18e255fff92a03842872af2647daea610cd59a46f1f56ee8c22b86153cd82`, provider checksum
+  `md5:9a9897afc6286243d560b42e031de45a`. The archived-state audit reported 12 pass, 0 warnings,
+  0 failures.
+- 2026-09-16: The living repository now carries the active DOI, release date,
+  and citation in the README, `CITATION.cff`, and the paper's date line and
+  appendix. The immutable `v0.1.0` tag and its candidate-era wording remain
+  unchanged.

@@ -1,9 +1,16 @@
 # The Perron vector of a totient Gram matrix and its harmonic approximation
 
-**Release state: CANDIDATE, version 0.1.0.** This repository is being prepared
-under the project's [public research standard](https://jeff-kline.github.io/posts/research-program/index.html).
-No stable archive, tag, or DOI exists yet. Admission under that standard is a
-project release decision, not peer review or a correctness certificate.
+**Release state: ADMITTED at v0.1.0.** The immutable release is preserved
+under version DOI [10.5281/zenodo.22783896](https://doi.org/10.5281/zenodo.22783896).
+Zenodo's public archive was verified byte-for-byte against the GitHub tag
+zipball pinned before the Release. The immutable tag retains its honest
+candidate-era wording; this living repository carries the active citation.
+The [concept DOI](https://doi.org/10.5281/zenodo.22783895) resolves to the
+latest archived version. The release passed the project's
+[public research standard](https://jeff-kline.github.io/posts/research-program/index.html)
+and is listed on [Experimental Mathematics](https://jeff-kline.github.io/).
+Admission is a project release decision, not peer review or a correctness
+certificate.
 
 ## The question
 
@@ -184,8 +191,16 @@ are not peer review and do not certify correctness.
 
 ## Citation and license
 
-No citable version exists yet. When the release is archived, cite the version
-DOI recorded in [CITATION.cff](CITATION.cff).
+Cite the exact release as:
+
+> Jeffery Kline, *The Perron vector of a totient Gram matrix and its harmonic
+> approximation*, Version 0.1.0, Zenodo, 2026.
+> <https://doi.org/10.5281/zenodo.22783896>.
+
+The version DOI identifies the archived `v0.1.0` release. The concept DOI
+<https://doi.org/10.5281/zenodo.22783895> resolves to the latest version.
+[CITATION.cff](CITATION.cff) carries the same citation in machine-readable
+form.
 
 Copyright © 2026 Jeffery Kline. Licensed under the GNU General Public License,
 version 3 or, at your option, any later version (`GPL-3.0-or-later`).

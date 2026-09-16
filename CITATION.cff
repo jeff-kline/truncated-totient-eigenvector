@@ -1,8 +1,10 @@
 cff-version: 1.2.0
-message: "Cite the archived release version and its DOI, as identified in the repository README and admission record."
+message: "If you use this result, cite Version 0.1.0."
 title: "The Perron vector of a totient Gram matrix and its harmonic approximation"
 type: software
 version: 0.1.0
+doi: 10.5281/zenodo.22783896
+date-released: "2026-09-16"
 authors:
   - family-names: Kline
     given-names: Jeffery

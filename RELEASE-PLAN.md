@@ -24,12 +24,12 @@ This file is a living record; `ADMISSION.md` carries the verdict.
   (arXiv). The author's private August 2026 working repository proved the
   eigenvalue constant and the lower bound `liminf >= 1` and left the upper
   bound open; it is superseded, not cited.
-- **Current public claim surfaces.** None. No push, tag, release, archive,
-  DOI, or site listing exists yet.
+- **Current public claim surfaces.** Public repository, tag `v0.1.0`, GitHub
+  Release, Zenodo record 10.5281/zenodo.22783896. Site listing pending.
 
 ## State
 
-`CANDIDATE` as of 2026-09-15. Advance only `DRAFT -> CANDIDATE -> TAGGED -> ARCHIVED -> ADMITTED`.
+`ARCHIVED` as of 2026-09-16; admission pending the public-site listing. Advance only `DRAFT -> CANDIDATE -> TAGGED -> ARCHIVED -> ADMITTED`.
 
 ## Gates
 
@@ -63,10 +63,10 @@ This file is a living record; `ADMISSION.md` carries the verdict.
 | Artifact integrity | PASS | Deterministic double build of `paper/main.pdf`; `MANIFEST.sha256`. |
 | Hygiene | PASS | No private paths, placeholders, or campaign-relative paths. |
 | Stewardship | PASS | `CORRECTIONS.md`, `CITATION.cff`, `ADMISSION.md`, `AUDIT_LEDGER.md`. |
-| Tag | OPEN | `v0.1.0` at the audited commit. |
-| Archive | OPEN | Zenodo GitHub integration; pin GitHub `zipball/v0.1.0` twice before the Release. |
-| Citation | OPEN | Version DOI after Zenodo mints it. |
-| Metadata | OPEN | Verify Zenodo record fields. |
+| Tag | PASS | `v0.1.0` at the audited commit. |
+| Archive | PASS | Zenodo GitHub integration; pin GitHub `zipball/v0.1.0` twice before the Release. |
+| Citation | PASS | Version DOI after Zenodo mints it. |
+| Metadata | PASS | Verify Zenodo record fields. |
 
 ## Archive route
 
@@ -97,6 +97,6 @@ edits.
 3. Rewrite abstract, introduction, README (done 2026-09-15).
 4. Bounded read-only audits in parallel (done 2026-09-15: four lanes; see AUDIT_LEDGER.md).
 5. Integrate findings; freeze one clean candidate; run candidate audit (done 2026-09-15).
-6. Freeze bundle: push, tag, GitHub Release (explicit authorization).
-7. Verify Zenodo record, DOI, byte identity; archived-state audit.
+6. Freeze bundle: push, tag, GitHub Release (done 2026-09-15/16).
+7. Verify Zenodo record, DOI, byte identity; archived-state audit (done 2026-09-16: 12/0/0).
 8. Admission bundle: site listing, living metadata; admitted-state audit; verdict.

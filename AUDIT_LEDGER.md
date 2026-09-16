@@ -153,10 +153,25 @@ Findings were integrated by the root agent; no auditor edited the tree.
   attributed the half-interval lower bound to convexity; the certificate uses
   monotone enclosures there, and the prose now says so.
 
+## 2026-09-16 — release: archive verification
+
+- Route: Zenodo GitHub integration. GitHub Release `v0.1.0` published from
+  the immutable tag at `0746f6df69cc7c7b551ef47dffbd8436f0c1a1aa`; Zenodo accepted the `published` event and
+  minted version DOI `10.5281/zenodo.22783896` (concept DOI `10.5281/zenodo.22783895`).
+- Expected artifact: GitHub `zipball/v0.1.0`, downloaded twice before the
+  Release, 468,629 bytes, SHA-256 `b0b18e255fff92a03842872af2647daea610cd59a46f1f56ee8c22b86153cd82`. Secondary `git archive`
+  determinism check: two builds identical at 467,285 bytes, SHA-256
+  `583d559b21b82a8dfb714f5e800b976ae230382dc1b9a7e2f5a7a3fb5576de6d` (not the provider target).
+- Public record: title, creator `Kline, Jeffery`, version `v0.1.0`,
+  publication date 2026-09-16, license `gpl-3.0-or-later`, resource type
+  software, related identifier the `v0.1.0` tree, access open. DOI resolves.
+- Downloaded Zenodo file: 468,629 bytes, SHA-256 `b0b18e255fff92a03842872af2647daea610cd59a46f1f56ee8c22b86153cd82`, provider
+  checksum `md5:9a9897afc6286243d560b42e031de45a`, byte-identical to the pinned zipball; internal
+  manifest of 46 files verified.
+- Archived-state audit on the unchanged tagged tree: 12 pass, 0 warnings,
+  0 failures.
+
 ## Open audits
 
-- Candidate-state mechanical audit on the clean integrated tree
-  (`--require-clean`), then outgoing-identity inspection before the freeze
-  bundle.
-- Archived-state audit after the Zenodo record exists.
+- Public-site listing and its deployed-HTML check.
 - Final clean admitted-state audit and publication of the living metadata.
