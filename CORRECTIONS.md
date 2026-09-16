@@ -42,3 +42,10 @@ This file records every public version. No public version exists yet.
   certificate program's historical comments were documented rather than
   edited. State advanced to CANDIDATE. No push, tag, release, archive, or DOI
   exists.
+- 2026-09-15: Before publication, the title was changed from "A proof of the
+  2020 dominant-eigenvector conjecture for truncated-totient matrices" to
+  "The Perron vector of a totient Gram matrix and its harmonic
+  approximation", so that the title names the object and the result rather
+  than the conjecture's date. The abstract, introduction, and README were
+  rewritten for plainness. No mathematical statement changed. Gate A1 was
+  reopened for a prose-quality audit.

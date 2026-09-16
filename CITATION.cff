@@ -1,17 +1,17 @@
 cff-version: 1.2.0
 message: "Cite the archived release version and its DOI, as identified in the repository README and admission record."
-title: "A proof of the 2020 dominant-eigenvector conjecture for truncated-totient matrices"
+title: "The Perron vector of a totient Gram matrix and its harmonic approximation"
 type: software
 version: 0.1.0
 authors:
   - family-names: Kline
     given-names: Jeffery
 abstract: >-
-  Let R_n be the n-by-n matrix whose (j,k) entry counts the integers a <= j/k
-  coprime to j, and let Q_n = R_n^T R_n. Kline (2020) showed Q_n mu_n = e_1
-  and conjectured that the positive unit dominant eigenvector v_n of Q_n
-  satisfies lim n || h_n - (v_n^T h_n) v_n ||_inf = 1 with h_n(k) = 1/k. This
-  release proves the conjecture. The residual scaled by n converges
+  Let R_n be the n-by-n matrix whose (j,k) entry counts the integers up to
+  j/k that are coprime to j, and let Q_n = R_n^T R_n be its Gram matrix. Kline
+  (2020) showed Q_n mu_n = e_1 and conjectured that the Perron vector v_n of
+  Q_n satisfies lim n || h_n - (v_n^T h_n) v_n ||_inf = 1 with h_n(k) = 1/k.
+  This release proves the conjecture. The residual scaled by n converges
   coordinatewise to an explicit arithmetic profile U(n/k), and the conjecture
   reduces to |U(t)| <= 1 for real t >= 1, which is closed by an exact integer
   certificate for t <= 10^6 and an analytic tail bound below 0.68 based on

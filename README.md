@@ -1,124 +1,89 @@
-# A proof of the 2020 dominant-eigenvector conjecture for truncated-totient matrices
+# The Perron vector of a totient Gram matrix and its harmonic approximation
 
 **Release state: CANDIDATE, version 0.1.0.** This repository is being prepared
 under the project's [public research standard](https://jeff-kline.github.io/posts/research-program/index.html).
-Claims are frozen. No stable archive, tag, or DOI exists yet. Admission under
-that standard will be a project release decision, not peer review or a
-correctness certificate.
+No stable archive, tag, or DOI exists yet. Admission under that standard is a
+project release decision, not peer review or a correctness certificate.
 
-## The claim
+## The question
 
-For `1 <= j, k <= n` let `R_n(j,k)` count the integers `a <= j/k` that are
-coprime to `j`. This is a truncated totient: `R_n(j,1) = phi(j)` and
-`R_n(j,j) = 1`. Put `Q_n = R_n^T R_n`. Kline (2020) introduced these
-matrices, proved that `Q_n mu_n = e_1` for the Möbius vector `mu_n` and the
-first standard basis vector `e_1`, so that `det Q_n = 1`, and conjectured that
-the positive unit dominant eigenvector `v_n` of `Q_n` satisfies
+Take the `n`-by-`n` matrix `R_n` whose `(j,k)` entry counts the integers up to
+`j/k` that are coprime to `j`. Its first column holds Euler's totient
+`phi(1), ..., phi(n)` and its diagonal is all ones. Its Gram matrix
+`Q_n = R_n^T R_n` has positive entries, so it has a unique positive unit
+eigenvector for its largest eigenvalue, the Perron vector `v_n`.
+
+Kline (2020) introduced these matrices and proved that `Q_n mu_n = e_1` for
+the Möbius vector `mu_n`, so `Q_n` has determinant one and the Möbius vector
+is the first column of its inverse. The paper noted numerically that `v_n` is
+nearly a multiple of the harmonic vector `h_n = (1, 1/2, ..., 1/n)` and
+closed with a conjecture about how near:
 
 ```text
-lim_{n -> infinity}  n * || h_n - (v_n^T h_n) v_n ||_inf  =  1,      h_n(k) = 1/k.
+lim_{n -> infinity}  n * || h_n - (v_n^T h_n) v_n ||_inf  =  1.
 ```
 
-The vector inside the norm is what remains of `h_n` after projecting onto
+The vector inside the norm is what is left of `h_n` after projecting it onto
 `v_n`. The conjecture says this residual has sup norm exactly `1/n` to first
 order.
 
-> **Main result (Theorem 3.1 of the paper).** The conjecture is true.
-> More precisely, with `r_n = h_n - (v_n^T h_n) v_n`, the scaled coordinate
-> `n r_n(k)` converges to `U(t)` whenever `k/n -> 1/t`, where
+## The answer
+
+> **Theorem 3.1.** The conjecture is true. Write `r_n` for the residual,
+> `g(a) = prod_{p | a} p/(p+1)`, `G = prod_p (1 - 1/(p(p+1)))`, and
 >
 > ```text
-> U(t) = t - (3/(2G)) * sum_{a <= t} g(a) (1 - a^2/t^2),
-> g(a) = prod_{p | a} p/(p+1),   G = prod_p (1 - 1/(p(p+1))),
+> U(t) = t - (3/(2G)) * sum_{a <= t} g(a) (1 - a^2/t^2)       (t >= 1).
 > ```
 >
-> and for each fixed `k` it converges to `rho/k`, where `rho` is an explicit
-> constant with `|rho| < 6/pi^2`. The conjecture is equivalent to
-> `|U(t)| <= 1` for all real `t >= 1`, which holds with equality only at
-> `t = 1`.
+> Then `n r_n(k) -> U(t)` whenever `k/n -> 1/t`, and for each fixed `k`,
+> `n r_n(k) -> rho/k` for an explicit constant `rho` with `|rho| < 6/pi^2`.
+> Since `U(1) = 1`, the conjecture is the same as `|U(t)| <= 1` for all
+> `t >= 1`, and equality holds only at `t = 1`.
 
 The proof is unconditional. It uses the prime number theorem in the effective
 form `M(x) = O(x exp(-a sqrt(log x)))` for the Mertens function
 `M(x) = sum_{k <= x} mu(k)`, and Ramaré's explicit bound
-`|sum_{k <= x} mu(k)/k| <= 1/(12 log x)` for `x >= 687`. No unproved
-hypothesis is assumed.
+`|sum_{k <= x} mu(k)/k| <= 1/(12 log x)` for `x >= 687`.
 
-## How the proof goes
+**Three parts.** A matrix part writes `R_n` as the rank-one matrix
+`phi_n h_n^T` plus an error small enough for first-order perturbation theory.
+An arithmetic part shows the resulting correction to `h_n` has the profile
+`U(n/k)`; this is where Möbius cancellation enters. A scalar part proves
+`|U(t)| <= 1`: an exact integer program checks it for `1 <= t <= 10^6`, with
+every real constant replaced by an outward-rounded rational interval, and
+Ramaré's bound gives `|U(t)| <= 202847/300000 < 0.68` beyond `10^6`.
 
-1. **Matrix step.** `R_n = phi_n h_n^T + E_n`, where `phi_n` lists the
-   totient values. The error `E_n` has Frobenius norm (the square root of the
-   sum of squared entries) `O(n log^(1/2) n)`, against order `n^(3/2)` for
-   the rank-one main term. Rank-one perturbation gives `v_n`, the dominant
-   eigenvalue `Lambda_n`, and `r_n` in terms of the correction vector
-   `q = E_n^T phi_n / ||phi_n||^2`, up to Euclidean error `O(n^(-3/2) log^3 n)`.
-2. **Arithmetic step.** `n q_k = -U(n/k) + O(log^2 n / k)` uniformly in `k`,
-   with a separate estimate showing `n q_k` is smaller than any power of
-   `log n` when `k <= log^B n`. This is where Möbius cancellation enters.
-3. **Scalar step.** `U` is convex on each `[m, m+1]` and given by a closed
-   formula in two partial sums. An exact integer program verifies
-   `U(m) < 3/4` at all `999,999` integer endpoints `2 <= m <= 10^6` and a lower
-   enclosure `U > -3/4` on all `1,999,998` half-integer intervals. Every real
-   constant is replaced by a rational interval that provably contains it,
-   rounded outward, with denominator `10^30`. For `t >= 10^6`, Ramaré's bound
-   gives `|U(t)| <= 202847/300000 < 0.68`.
+**Also proved, from the matrix part alone.**
 
-The last column of `R_n` is the last standard basis vector `e_n`, which gives
-`n r_n(n) -> 1` and the matching lower bound.
-
-## Consequences
-
-Using only the matrix step:
-
-- `Lambda_n / n^3 -> G/3 = 0.2348...`. The 2020 paper had only the two-sided
-  bounds `0.1427 n^3 <~ Lambda_n <= 0.5483 n^3`.
-- `v_n^T mu_n = v_n(1) / Lambda_n` exactly, hence
-  `v_n^T mu_n ~ 3 sqrt(6) n^(-3) / (pi G) = 3.3205... n^(-3)`, replacing the
-  `O(n^(-3/2))` bound of Corollary 9 in the 2020 paper.
-- All other eigenvalues of `Q_n` sum to `O(n^2 log n)`.
+- `Lambda_n / n^3 -> G/3 = 0.2348...` for the largest eigenvalue. The 2020
+  paper had bounds a factor of four apart.
+- `v_n^T mu_n = v_n(1) / Lambda_n` exactly, so
+  `v_n^T mu_n ~ 3 sqrt(6) n^(-3) / (pi G) = 3.3205... n^(-3)`. Corollary 9 of
+  the 2020 paper had `O(n^(-3/2))`.
+- The remaining eigenvalues of `Q_n` sum to `O(n^2 log n)`.
 
 ## What is not claimed
 
-The natural attempt to estimate the harmonic Möbius sum `m(n) = sum mu(k)/k`
-through this eigenvector approximation fails for an exact reason: the profile
-correlation `sum_k mu(k) U(n/k) / n` equals `m(n)` up to `O(log n / n)`.
-The paper records this obstruction. **No new estimate for Möbius sums, the
-Mertens function, or the prime number theorem is claimed.** No global novelty
-or priority claim is made. A bounded literature search, recorded in
-[audit/PRIOR_ART.md](audit/PRIOR_ART.md), found no other resolution of the
-conjecture and no earlier determination of the constants above.
+One might hope to estimate the harmonic Möbius sum `m(n) = sum mu(k)/k` by
+replacing `h_n` with this eigenvector approximation. An exact identity shows
+why that fails: the profile correlation `sum_k mu(k) U(n/k) / n` equals
+`m(n)` up to `O(log n / n)`. The paper records this obstruction. **No new
+estimate for Möbius sums, the Mertens function, or the prime number theorem
+is claimed.** No global novelty or priority claim is made. A bounded
+literature search, recorded in [audit/PRIOR_ART.md](audit/PRIOR_ART.md),
+found no other resolution of the conjecture and no earlier determination of
+the constants above.
 
-## Evidence and reproduction
+## Checking the result
 
-- [paper/main.tex](paper/main.tex) is the authoritative typeset source and
-  [paper/main.pdf](paper/main.pdf) the reading copy, built twice with
-  [scripts/build_paper.py](scripts/build_paper.py) and compared byte-for-byte.
-- [proof/proof-bundle.md](proof/proof-bundle.md) is the complete examined
-  argument; `proof/A*.md` are its component notes. Status labels inside those
-  notes are historical; [audit/campaign/FINAL-ADJUDICATION.md](audit/campaign/FINAL-ADJUDICATION.md)
-  records their completed review.
-- [code/certify_scalar.py](code/certify_scalar.py) is the exact integer
-  certificate for the scalar inequality;
-  [results/scalar-certificate.json](results/scalar-certificate.json) is its
-  frozen receipt. The program is frozen by the SHA-256 recorded in the receipt
-  and the paper, so its docstring still names its interpretation note by the
-  historical path `notes/A09-scalar-certificate.md`, now
-  [proof/A09-scalar-certificate.md](proof/A09-scalar-certificate.md).
-- [code/verify_reproduction.py](code/verify_reproduction.py) checks the
-  SHA-256 of every frozen artifact listed in
-  [audit/frozen-artifacts.json](audit/frozen-artifacts.json), then reruns the
-  certificate in a temporary directory and compares every deterministic field
-  with the receipt. It does not overwrite the receipt.
-- [code/probe.py](code/probe.py) and `results/A01.*` are exploratory
-  floating-point numerics through `n = 2000`. They are evidence of nothing
-  beyond plausibility and are not part of the proof.
-
-Requirements: any Python 3 interpreter; standard library only.
+Requirements: any Python 3 interpreter, standard library only.
 
 ```bash
 python3 code/verify_reproduction.py
 ```
 
-Expected output (the CPU time will vary):
+Expected output, with the CPU time varying:
 
 ```json
 {
@@ -131,9 +96,39 @@ Expected output (the CPU time will vary):
 }
 ```
 
-Reproducing the certificate confirms that the program asserts what the paper
-says it asserts. It does not by itself verify the mathematics that reduces the
-conjecture to those assertions; that argument is in the paper and proof notes.
+This confirms that every frozen file matches its recorded SHA-256 and that
+the certificate program, rerun in a temporary directory, asserts exactly what
+its frozen receipt says. It does not verify the mathematics that reduces the
+conjecture to those assertions. That argument is in the paper and the proof
+notes.
+
+## Repository map
+
+- [paper/main.tex](paper/main.tex), the authoritative typeset source, and
+  [paper/main.pdf](paper/main.pdf), built twice with
+  [scripts/build_paper.py](scripts/build_paper.py) and compared
+  byte-for-byte.
+- [proof/proof-bundle.md](proof/proof-bundle.md), the complete examined
+  argument, with component notes `proof/A*.md`. Status labels inside those
+  notes are historical;
+  [audit/campaign/FINAL-ADJUDICATION.md](audit/campaign/FINAL-ADJUDICATION.md)
+  records their completed review.
+- [code/certify_scalar.py](code/certify_scalar.py), the exact integer
+  certificate, and [results/scalar-certificate.json](results/scalar-certificate.json),
+  its frozen receipt. The program is frozen by the SHA-256 recorded in the
+  receipt and the paper, so its docstring still names its interpretation note
+  by the historical path `notes/A09-scalar-certificate.md`, now
+  [proof/A09-scalar-certificate.md](proof/A09-scalar-certificate.md).
+- [code/verify_reproduction.py](code/verify_reproduction.py) and
+  [audit/frozen-artifacts.json](audit/frozen-artifacts.json), the
+  reproduction runner and the manifest of frozen files it checks.
+- [code/probe.py](code/probe.py) and `results/A01.*`, exploratory
+  floating-point numerics through `n = 2000`. They show plausibility and
+  nothing more; they are not part of the proof.
+- [ADMISSION.md](ADMISSION.md), gate status and verdict;
+  [AUDIT_LEDGER.md](AUDIT_LEDGER.md), audit history;
+  [CORRECTIONS.md](CORRECTIONS.md), correction policy and version history;
+  [RELEASE-PLAN.md](RELEASE-PLAN.md), the release plan.
 
 ## Prior work and sources
 
@@ -165,21 +160,14 @@ search is in [audit/PRIOR_ART.md](audit/PRIOR_ART.md).
 ## AI assistance
 
 The argument, certificate program, and exposition were developed with AI
-assistance under the author's direction. The scalar tail bound was first
-proposed by one model and re-implemented in exact integer arithmetic by
-another. The matrix step, the assembled proof, and the certificate were
-examined by separate fresh-context model audits; the reports, their SHA-256
-seals, and the author's adjudication are preserved in
-[audit/campaign/](audit/campaign/). Four further read-only release audits are
-summarized in [AUDIT_LEDGER.md](AUDIT_LEDGER.md). Those audits are process
-evidence. They are not peer review and do not certify correctness.
-
-## Release records
-
-[ADMISSION.md](ADMISSION.md) carries the gate status and verdict,
-[AUDIT_LEDGER.md](AUDIT_LEDGER.md) the audit history, and
-[CORRECTIONS.md](CORRECTIONS.md) the correction policy and version history.
-[RELEASE-PLAN.md](RELEASE-PLAN.md) is the release plan.
+assistance under the author's direction. One model first proposed the scalar
+tail bound; another re-implemented it in exact integer arithmetic. The matrix
+part, the assembled proof, and the certificate were examined by separate
+fresh-context model audits; the reports, their SHA-256 seals, and the
+author's adjudication are preserved in [audit/campaign/](audit/campaign/).
+Further read-only release audits are summarized in
+[AUDIT_LEDGER.md](AUDIT_LEDGER.md). These audits are process evidence. They
+are not peer review and do not certify correctness.
 
 ## Citation and license
 
