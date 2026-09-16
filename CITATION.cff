@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this result, cite the archived release version."
+message: "Cite the archived release version and its DOI, as identified in the repository README and admission record."
 title: "A proof of the 2020 dominant-eigenvector conjecture for truncated-totient matrices"
 type: software
 version: 0.1.0
@@ -19,6 +19,8 @@ abstract: >-
   leading constant G/3, and v_n^T mu_n is asymptotic to 3 sqrt(6) n^-3 /(pi G),
   replacing the 2020 O(n^-3/2) bound. An exact convolution identity shows the
   eigenvector approximation yields no new estimate for the harmonic Mobius sum.
+  A bounded literature search found no other resolution of the conjecture; this
+  is a statement about the searched corpus, not a priority claim.
 keywords:
   - Mobius function
   - Euler totient

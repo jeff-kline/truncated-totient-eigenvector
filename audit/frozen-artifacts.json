@@ -28,5 +28,10 @@
       "sha256": "893d9f7d96c3dc7d163fa46e0afd7b6adeb59bc9a21ee4c782c4fda677d3113c",
       "url": "https://ramare-olivier.github.io/Maths/mcom3449-corrigendum.pdf"
     }
+  },
+  "provenance_notes": {
+    "audit/campaign/CLAUDE-02-initial-report.md": "Not in candidate-integrity.json; sealed by SHA-256 in audit/campaign/SEALS.md and FINAL-ADJUDICATION.md before proof exposure.",
+    "audit/campaign/CLAUDE-02-proof-audit.md": "Not in candidate-integrity.json; sealed by SHA-256 in audit/campaign/FINAL-ADJUDICATION.md at receipt.",
+    "code/certify_scalar.py": "Frozen; its docstring names notes/A09-scalar-certificate.md, now proof/A09-scalar-certificate.md. Comment wording (eta(1000), U(m)<=3/4) is documented in the paper appendix and FINAL-ADJUDICATION.md item 3."
   }
 }

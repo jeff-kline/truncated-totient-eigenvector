@@ -33,3 +33,12 @@ This file records every public version. No public version exists yet.
   repository on the same matrices, which proved the eigenvalue constant and
   the lower bound `liminf >= 1` and left the upper bound open. No push, tag,
   release, archive, or DOI exists.
+- 2026-09-15: Four read-only fresh-context release audits (claim and prose;
+  proof and parameters; citations and prior art; reproducibility and release
+  mechanics) were integrated. The proof lane found no defect. Edits: the
+  fixed-coordinate limit was added to the statement of Theorem 3.1 (it was
+  already proved in its proof); the Redheffer-matrix spectral literature was
+  discussed and cited; bibliographic records were completed; the frozen
+  certificate program's historical comments were documented rather than
+  edited. State advanced to CANDIDATE. No push, tag, release, archive, or DOI
+  exists.

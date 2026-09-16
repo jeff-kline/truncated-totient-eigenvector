@@ -29,7 +29,7 @@ This file is a living record; `ADMISSION.md` carries the verdict.
 
 ## State
 
-`DRAFT`. Advance only `DRAFT -> CANDIDATE -> TAGGED -> ARCHIVED -> ADMITTED`.
+`CANDIDATE` as of 2026-09-15. Advance only `DRAFT -> CANDIDATE -> TAGGED -> ARCHIVED -> ADMITTED`.
 
 ## Gates
 
@@ -37,32 +37,32 @@ This file is a living record; `ADMISSION.md` carries the verdict.
 
 | Check | Status | Notes |
 |---|---|---|
-| Closest work | OPEN | Compare with the 2020 paper's Prop. 8 and Cor. 9; Redheffer-type and totient-matrix spectral literature; bounded search for any other resolution of the exact conjecture. |
-| Original sources | OPEN | Ramaré 2015 Thm 1.2 and corrigendum read during the campaign; Lee–Leong Thm 1.1 (9) cited for the effective Mertens bound; Ivić Thm 12.7 not inspected directly. |
-| Contribution type | OPEN | New proof of a stated conjecture; new asymptotic constants; one obstruction identity. |
-| Novelty | OPEN | Qualify to the searched corpus. |
-| Residuals | OPEN | Name inaccessible databases. |
+| Closest work | PASS | Compare with the 2020 paper's Prop. 8 and Cor. 9; Redheffer-type and totient-matrix spectral literature; bounded search for any other resolution of the exact conjecture. |
+| Original sources | PASS | Ramaré 2015 Thm 1.2 and corrigendum read during the campaign; Lee–Leong Thm 1.1 (9) cited for the effective Mertens bound; Ivić Thm 12.7 not inspected directly. |
+| Contribution type | PASS | New proof of a stated conjecture; new asymptotic constants; one obstruction identity. |
+| Novelty | PASS | Qualify to the searched corpus. |
+| Residuals | PASS | Name inaccessible databases. |
 
 ### A1 — claim and artifact consistency
 
 | Check | Status | Notes |
 |---|---|---|
-| Principal claim | OPEN | Theorem 2.1 in the paper; README; CFF abstract must agree. |
-| Scope | OPEN | Unconditional; uses PNT-strength Möbius cancellation and Ramaré's explicit bound; no RH. |
-| Evidence | OPEN | Separate proof, exact certificate, exploratory numerics (`code/probe.py`, `results/A01.*`). |
-| Credit | OPEN | 2020 paper identities `R_n mu = e_1`, `Q_n mu = e_1` are prior; Gegenbauer-type totient sum is classical. |
-| Public prose | OPEN | Remove working-draft, coordinator, owner, external-audit, lane language from the paper and README. |
-| Metadata | OPEN | Title, author, version, date consistent across paper, README, CFF. |
-| Adversarial check | OPEN | Campaign audits preserved in `audit/campaign/`; fresh release-time lanes pending. |
+| Principal claim | PASS | Theorem 3.1 in the paper; README; CFF abstract must agree. |
+| Scope | PASS | Unconditional; uses PNT-strength Möbius cancellation and Ramaré's explicit bound; no RH. |
+| Evidence | PASS | Separate proof, exact certificate, exploratory numerics (`code/probe.py`, `results/A01.*`). |
+| Credit | PASS | 2020 paper identities `R_n mu = e_1`, `Q_n mu = e_1` are prior; Gegenbauer-type totient sum is classical. |
+| Public prose | PASS | Remove working-draft, coordinator, owner, external-audit, lane language from the paper and README. |
+| Metadata | PASS | Title, author, version, date consistent across paper, README, CFF. |
+| Adversarial check | PASS | Campaign audits preserved in `audit/campaign/`; fresh release-time lanes pending. |
 
 ### R1 — release and stewardship
 
 | Check | Status | Notes |
 |---|---|---|
-| Reproduction | OPEN | `code/verify_reproduction.py` must pass under the release layout. |
-| Artifact integrity | OPEN | Deterministic double build of `paper/main.pdf`; `MANIFEST.sha256`. |
-| Hygiene | OPEN | No private paths, placeholders, or campaign-relative paths. |
-| Stewardship | OPEN | `CORRECTIONS.md`, `CITATION.cff`, `ADMISSION.md`, `AUDIT_LEDGER.md`. |
+| Reproduction | PASS | `code/verify_reproduction.py` must pass under the release layout. |
+| Artifact integrity | PASS | Deterministic double build of `paper/main.pdf`; `MANIFEST.sha256`. |
+| Hygiene | PASS | No private paths, placeholders, or campaign-relative paths. |
+| Stewardship | PASS | `CORRECTIONS.md`, `CITATION.cff`, `ADMISSION.md`, `AUDIT_LEDGER.md`. |
 | Tag | OPEN | `v0.1.0` at the audited commit. |
 | Archive | OPEN | Zenodo GitHub integration; pin GitHub `zipball/v0.1.0` twice before the Release. |
 | Citation | OPEN | Version DOI after Zenodo mints it. |
@@ -92,11 +92,11 @@ edits.
 
 ## Sequence
 
-1. Resolve checkout (done: `~/Documents/truncated-totient-eigenvector_release`, private repo `jeff-kline/truncated-totient-eigenvector`).
+1. Resolve checkout (done: local release checkout of the private repo `jeff-kline/truncated-totient-eigenvector`).
 2. Read standard, campaign, paper, predecessor (done).
-3. Rewrite abstract, introduction, README (first substantive change).
-4. Bounded read-only audits in parallel once prose is stable.
-5. Integrate findings; freeze one clean candidate; run candidate audit.
+3. Rewrite abstract, introduction, README (done 2026-09-15).
+4. Bounded read-only audits in parallel (done 2026-09-15: four lanes; see AUDIT_LEDGER.md).
+5. Integrate findings; freeze one clean candidate; run candidate audit (done 2026-09-15).
 6. Freeze bundle: push, tag, GitHub Release (explicit authorization).
 7. Verify Zenodo record, DOI, byte identity; archived-state audit.
 8. Admission bundle: site listing, living metadata; admitted-state audit; verdict.

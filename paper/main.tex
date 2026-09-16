@@ -70,7 +70,7 @@ Lemma~\ref{lem:matrix} alone, without the scalar certificate, sharpens the estim
 Corollary~9 of \cite{kline} was motivated by the decomposition $\sum_{k\le n}\mu(k)/k=h_n^\top\muvec_n=(v_n^\top h_n)(v_n^\top\muvec_n)+r_n^\top\muvec_n$. Since the first term is now known to be of order $n^{-3}$, one may ask whether the residual correlation $r_n^\top\muvec_n$ can be estimated by other means. Section~\ref{sec:obstruction} shows that the residual can be replaced by its scalar profile with summed error $O(\log^3n/n)$ and that a variation estimate transfers known bounds for the Mertens function. An exact convolution identity then shows that the profile correlation equals $\sum_{k\le n}\mu(k)/k$ itself up to $O(\log n/n)$. The approximation is accurate but circular for this purpose. No new estimate for M\"obius sums is claimed.
 
 \subsection*{Prior work and scope}
-The matrices, the identities $R_n\muvec_n=e_1$ and $Q_n\muvec_n=e_1$, the eigenvalue sandwich, Corollary~9, and the conjecture itself are from \cite{kline}. The totient-sum asymptotic $\sum_{j\le n}\varphi(j)^2\sim cn^3$ is classical. The analytic inputs are the effective Mertens-type bound for $\sum_{k\le x}\mu(k)$, available for example from Lee and Leong \cite{lee}, and Ramar\'e's explicit estimate \cite{ramare}, whose corrigendum \cite{corr} does not affect the theorem used. A bounded literature search found no other resolution of \eqref{eq:intro-conj}; this is a statement about the searched corpus, not a global priority claim.
+The matrices, the identities $R_n\muvec_n=e_1$ and $Q_n\muvec_n=e_1$, the eigenvalue sandwich, Corollary~9, and the conjecture itself are from \cite{kline}. The totient-sum asymptotic $\sum_{j\le n}\varphi(j)^2\sim cn^3$ is classical. The nearest spectral literature concerns Redheffer's matrix, the $(0,1)$ matrix with $(i,j)$ entry one exactly when $j=1$ or $i\mid j$, whose determinant is the Mertens function. Barrett, Forcade and Pollington~\cite{bfp} showed that all but $\lfloor\log_2n\rfloor+1$ of its eigenvalues equal one and that its spectral radius is asymptotic to $\sqrt n$; Vaughan~\cite{vaughan} refined that analysis; and Cl\'ement and Steinerberger~\cite{cs} showed that its dominant singular vector is close to the explicit vector $k\mapsto\sum_{d\mid k}1/d$. Those results concern a different matrix, with spectral radius of order $\sqrt n$ rather than $n^3$, and none of them addresses $R_n$, $Q_n$, or a sup-norm residual limit. The analytic inputs are the effective Mertens-type bound for $\sum_{k\le x}\mu(k)$, available for example from Lee and Leong \cite{lee}, and Ramar\'e's explicit estimate \cite{ramare}, whose corrigendum \cite{corr} does not affect the theorem used. A bounded literature search, recorded in the repository file \texttt{audit/PRIOR\_ART.md}, found no other resolution of \eqref{eq:intro-conj} and no earlier determination of the constants in Proposition~\ref{prop:cor9}; this is a statement about the searched corpus, not a global priority claim.
 
 \subsection*{Evidence and AI assistance}
 The argument, the certificate program, and this exposition were developed with AI assistance under the author's direction. The scalar tail bound was first proposed by one model and re-implemented in exact integer arithmetic by another; the matrix step, the assembled proof, and the certificate were each examined by separate fresh-context model audits, whose reports are preserved in the repository. Such audits are process evidence. They are not peer review, and they do not certify correctness. The certificate is executable and its receipt can be regenerated with \texttt{code/verify\_reproduction.py}; Appendix~\ref{app:files} lists every companion file.
@@ -112,7 +112,7 @@ Write $r_n=h_n-(v_n^\top h_n)v_n$. Moreover, with
  \qquad J=\int_1^\infty\frac{U(t)^2}{t^2}\,dt,
  \qquad \rho=\frac{J-I}{\zeta(2)},
 \]
-one has $nr_n(1)\to\rho$, $|\rho|<1/\zeta(2)$, and, for each fixed $t\ge1$ and any $k_n/n\to1/t$,
+one has $nr_n(k)\to\rho/k$ for each fixed $k\ge1$, where $|\rho|<1/\zeta(2)$, and, for each fixed $t\ge1$ and any $k_n/n\to1/t$,
 \[
  nr_n(k_n)\longrightarrow U(t).
 \]
@@ -146,7 +146,7 @@ The divisor expansion gives $|E(j,k)|\le\min(\tau(j),j/k)$, whence
  \|Eh\|_2=O(n^{1/2}L^{5/2}),\quad
  \|b\|_2=O(n^{5/2}L^{1/2}).
 \]
-For the first bound, sum $\min(\tau(j)^2,j^2/k^2)$ over $k$ and then use $\sum_{j\le n}j\tau(j)=O(n^2L)$. For the second, use $|(Eh)_j|\le\tau(j)\sum_{k\le n}1/k$ and $\sum_{j\le n}\tau(j)^2=O(nL^3)$. Rank-one perturbation of $ah^\top$ gives the displayed first-order spectral estimates. In particular $\|Ev\|_2=O(n^{1/2}L^{5/2})$.
+For the first bound, sum $\min(\tau(j)^2,j^2/k^2)$ over $k$ and then use $\sum_{j\le n}j\tau(j)=O(n^2L)$. For the second, use $|(Eh)_j|\le\tau(j)\sum_{k\le n}1/k$ and $\sum_{j\le n}\tau(j)^2=O(nL^3)$. Rank-one perturbation of $ah^\top$, using the spectral gap of order $SH^2$ and a standard eigenvector perturbation bound, gives the displayed first-order spectral estimates; the companion note \texttt{proof/A04-uniform-linearization.md} carries the details. In particular $\|Ev\|_2=O(n^{1/2}L^{5/2})$.
 
 Column one of $E$ is zero. Subtracting $h_k$ times the first coordinate of the eigen-equation from its $k$th coordinate gives
 \[
@@ -470,7 +470,7 @@ The certificate program's SHA-256 is
 08395c08e2be59a5a4e97d234d8af032\\
 ffa7f19d9d383e77723721ba9d551587
 \end{quote}
-The line break is typographic; the digest is one string. From the repository root, the reproduction command is
+The line break is typographic; the digest is one string. The program is frozen by this digest and was not edited for this release. Its docstring names the interpretation note by its historical path \texttt{notes/A09-scalar-certificate.md}, now \texttt{proof/A09-scalar-certificate.md}; its comment \texttt{eta(1000)<=1/50} denotes $\sup_{x\ge1000}|m(x)|\le1/50$; and its comment on the endpoint check writes $U(m)\le3/4$ although the assertion it labels is strict. From the repository root, the reproduction command is
 \begin{quote}\ttfamily python3 code/verify\_reproduction.py\end{quote}
 It checks the frozen inputs against \texttt{audit/frozen-artifacts.json} and reruns the certificate in a temporary directory, using only the Python standard library. The computation is part of Lemma~\ref{lem:scalar}; the PDF alone does not replace its executable evidence.
 
@@ -480,8 +480,11 @@ This document makes no claim of human refereeing or proof-assistant verification
 
 \begin{thebibliography}{9}
 \bibitem{kline} J. Kline, Unital sums of the M\"obius and Mertens functions, \emph{Journal of Integer Sequences} \textbf{23} (2020), Article 20.8.1. Original article and source: \url{https://cs.uwaterloo.ca/journals/JIS/VOL23/Kline/kline4.html}.
-\bibitem{ramare} O. Ramar\'e, Explicit estimates on several summatory functions involving the Moebius function, \emph{Mathematics of Computation} \textbf{84} (2015), 1359--1387. \url{https://ramare-olivier.github.io/Maths/mcom2914.pdf}.
-\bibitem{corr} O. Ramar\'e, Corrigendum to the preceding article (2019). \url{https://ramare-olivier.github.io/Maths/mcom3449-corrigendum.pdf}.
-\bibitem{lee} E. S. Lee and N. Leong, \emph{New explicit bounds for Mertens function and the reciprocal of the Riemann zeta-function}, arXiv:2208.06141v5. \url{https://arxiv.org/abs/2208.06141v5}.
+\bibitem{ramare} O. Ramar\'e, Explicit estimates on several summatory functions involving the Moebius function, \emph{Mathematics of Computation} \textbf{84} (2015), no. 293, 1359--1387. \url{https://ramare-olivier.github.io/Maths/mcom2914.pdf}.
+\bibitem{corr} O. Ramar\'e, Corrigendum to ``Explicit estimates on several summatory functions involving the Moebius function'', \emph{Mathematics of Computation} \textbf{88} (2019), no. 319, 2383--2388, doi:10.1090/mcom/3449. \url{https://ramare-olivier.github.io/Maths/mcom3449-corrigendum.pdf}.
+\bibitem{lee} E. S. Lee and N. Leong, \emph{New explicit bounds for Mertens function and the reciprocal of the Riemann zeta-function}, preprint, arXiv:2208.06141v5 (9 September 2026); the theorem and equation numbers cited here are those of version 5. \url{https://arxiv.org/abs/2208.06141v5}.
+\bibitem{bfp} W. W. Barrett, R. W. Forcade and A. D. Pollington, On the spectral radius of a $(0,1)$ matrix related to Mertens' function, \emph{Linear Algebra and its Applications} \textbf{107} (1988), 151--159.
+\bibitem{vaughan} R. C. Vaughan, On the eigenvalues of Redheffer's matrix I, in \emph{Number Theory with an Emphasis on the Markoff Spectrum}, Lecture Notes in Pure and Applied Mathematics \textbf{147}, Dekker, 1993, 283--296; II, \emph{Journal of the Australian Mathematical Society, Series A} \textbf{60} (1996), 260--273.
+\bibitem{cs} F. Cl\'ement and S. Steinerberger, On the largest singular vector of the Redheffer matrix, preprint, arXiv:2502.09489 (2025).
 \end{thebibliography}
 \end{document}
