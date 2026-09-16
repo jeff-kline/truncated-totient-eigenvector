@@ -55,14 +55,18 @@ convexity and monotone enclosures on each unit interval, with every real
 constant replaced by an outward-rounded rational interval, and
 Ramaré's bound gives `|U(t)| <= 202847/300000 < 0.68` beyond `10^6`.
 
-**Also proved, from the matrix part alone.**
+**What the 2020 paper had, and what this release proves.** Here
+`c = (1/3) prod_p (1 - 2/p^2 + 1/p^3) = 0.1427...`, the constant of the 2020
+paper, and `c zeta(2) = G/3`.
 
-- `Lambda_n / n^3 -> G/3 = 0.2348...` for the largest eigenvalue. The 2020
-  paper had bounds a factor of four apart.
-- `v_n^T mu_n = v_n(1) / Lambda_n` exactly, so
-  `v_n^T mu_n ~ 3 sqrt(6) n^(-3) / (pi G) = 3.3205... n^(-3)`. Corollary 9 of
-  the 2020 paper had `O(n^(-3/2))`.
-- The remaining eigenvalues of `Q_n` sum to `O(n^2 log n)`.
+| Statement in Kline (2020) | There | Here |
+|---|---|---|
+| Conjecture after Corollary 9 | `lim n \|\| h_n - (v_n^T h_n) v_n \|\|_inf = 1`, open | proved, with the residual profile `U` (Theorem 3.1) |
+| Proposition 8, largest eigenvalue | `(c + o(1)) n^3 <= Lambda_n <= (pi^2/18) n^3 + O(n^2)` | `Lambda_n ~ c zeta(2) n^3 = 0.2348... n^3` (Proposition 4.1) |
+| Corollary 9, Möbius correlation | `\|v_n^T mu_n\| <= (c^(-1/2) + o(1)) n^(-3/2)` | `v_n^T mu_n = v_n(1)/Lambda_n ~ n^(-3) / (c zeta(2)^(3/2)) = 3.3205... n^(-3)` (Proposition 4.1) |
+
+The two improvements use only the matrix part. Also from that part: the
+remaining eigenvalues of `Q_n` sum to `O(n^2 log n)` (Proposition 4.2).
 
 ## What is not claimed
 

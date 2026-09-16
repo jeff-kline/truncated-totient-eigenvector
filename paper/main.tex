@@ -25,7 +25,11 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Take the $n\times n$ matrix $R_n$ whose $(j,k)$ entry counts the integers up to $j/k$ that are coprime to $j$. Its first column holds Euler's totient $\varphi(1),\ldots,\varphi(n)$, and we call its Gram matrix $Q_n=R_n^\top R_n$ a totient Gram matrix. Every entry of $Q_n$ is positive, so $Q_n$ has a unique positive unit eigenvector for its largest eigenvalue, the Perron vector $v_n$. The author's 2020 paper, which introduced these matrices, showed that $Q_n$ has determinant one, with the M\"obius vector as the first column of $Q_n^{-1}$, and observed numerically that $v_n$ is nearly a multiple of the harmonic vector $h_n=(1,1/2,\ldots,1/n)$. It conjectured that the part of $h_n$ left after projecting onto $v_n$ has sup norm exactly $1/n$ to first order. We prove this. We also identify the residual: multiplied by $n$, its $k$th coordinate tends to $U(t)$ along $k/n\to1/t$, for an explicit arithmetic function $U$, and the conjecture is equivalent to the inequality $|U(t)|\le1$ for $t\ge1$. That inequality holds by an exact integer computation for $t\le10^6$ and, for larger $t$, by an analytic bound resting on Ramar\'e's explicit estimate for the harmonic M\"obius sum. The same analysis gives the leading constant of the largest eigenvalue, $\Lambda_n\sim(G/3)n^3$ with $G=\prod_p(1-1/(p(p+1)))$, and shows that the M\"obius correlation $v_n^\top\muvec_n$ decays like $n^{-3}$, replacing the 2020 paper's upper bound of order $n^{-3/2}$ by an asymptotic equivalent. Finally, since $\sum_{k\le n}\mu(k)/k=h_n^\top\muvec_n$, one might estimate that sum by replacing $h_n$ with its projection onto $v_n$. An exact identity shows the replacement returns the sum unchanged up to $O(\log n/n)$; no new cancellation follows.
+Take the $n\times n$ matrix $R_n$ whose $(j,k)$ entry counts the integers up to $j/k$ that are coprime to $j$. Its first column holds Euler's totient $\varphi(1),\ldots,\varphi(n)$, and we call its Gram matrix $Q_n=R_n^\top R_n$ a totient Gram matrix. Every entry of $Q_n$ is positive, so $Q_n$ has a unique positive unit eigenvector for its largest eigenvalue, the Perron vector $v_n$. The author's 2020 paper, which introduced these matrices, showed that $Q_n$ has determinant one, with the M\"obius vector as the first column of $Q_n^{-1}$, and observed numerically that $v_n$ is nearly a multiple of the harmonic vector $h_n=(1,1/2,\ldots,1/n)$. It conjectured that
+\[
+ \lim_{n\to\infty}n\,\bigl\|h_n-(v_n^\top h_n)v_n\bigr\|_\infty=1,
+\]
+that is, that the part of $h_n$ left after projecting onto $v_n$ has sup norm exactly $1/n$ to first order. We prove this. We also identify the residual: multiplied by $n$, its $k$th coordinate tends to $U(t)$ along $k/n\to1/t$, for an explicit arithmetic function $U$, and the conjecture is equivalent to the inequality $|U(t)|\le1$ for $t\ge1$. That inequality holds by an exact integer computation for $t\le10^6$ and, for larger $t$, by an analytic bound resting on Ramar\'e's explicit estimate for the harmonic M\"obius sum. The same analysis improves two results of the 2020 paper. Its Proposition~8, $(c+o(1))n^3\le\Lambda_n\le(\pi^2/18)n^3+O(n^2)$ for the largest eigenvalue, with $c=\frac13\prod_p(1-2/p^2+1/p^3)\approx0.1427$, becomes $\Lambda_n\sim c\zeta(2)n^3$. Its Corollary~9, $|v_n^\top\muvec_n|\le(c^{-1/2}+o(1))n^{-3/2}$, becomes $v_n^\top\muvec_n\sim n^{-3}/(c\zeta(2)^{3/2})$. Finally, since $\sum_{k\le n}\mu(k)/k=h_n^\top\muvec_n$, one might estimate that sum by replacing $h_n$ with its projection onto $v_n$. An exact identity shows the replacement returns the sum unchanged up to $O(\log n/n)$; no new cancellation follows.
 \end{abstract}
 
 \section{Introduction}
@@ -39,7 +43,7 @@ These matrices come from \cite{kline}, where $R_n=D_n^{-1}T_nD_n$ for the divisi
 \[
  R_n\muvec_n=e_1,\qquad Q_n\muvec_n=e_1,
 \]
-for the M\"obius vector $\muvec_n=(\mu(1),\ldots,\mu(n))^\top$, so $Q_n$ has determinant one and the M\"obius vector is the first column of $Q_n^{-1}$. It bounds $\Lambda_n$ between $0.1427\,n^3$ and $(\pi^2/18)n^3$, proves in its Corollary~9 that $|v_n^\top\muvec_n|\le(2.6467+o(1))n^{-3/2}$, notes numerically that $v_n$ is nearly a multiple of the harmonic vector $h_n=(1,1/2,\ldots,1/n)^\top$, and closes with the conjecture
+for the M\"obius vector $\muvec_n=(\mu(1),\ldots,\mu(n))^\top$, so $Q_n$ has determinant one and the M\"obius vector is the first column of $Q_n^{-1}$. Its Proposition~8 proves $(c+o(1))n^3\le\Lambda_n\le(\pi^2/18)n^3+O(n^2)$ with $c=\frac13\prod_p(1-2/p^2+1/p^3)\approx0.1427$, and its Corollary~9 proves $|v_n^\top\muvec_n|\le(c^{-1/2}+o(1))n^{-3/2}$, where $c^{-1/2}\approx2.6467$. It notes numerically that $v_n$ is nearly a multiple of the harmonic vector $h_n=(1,1/2,\ldots,1/n)^\top$, and closes with the conjecture
 \begin{equation}\label{eq:intro-conj}
  \lim_{n\to\infty}n\,\bigl\|h_n-(v_n^\top h_n)v_n\bigr\|_\infty=1.
 \end{equation}
@@ -61,7 +65,7 @@ The proof has three parts.
 \end{enumerate}
 
 \subsection*{Spectral consequences}
-The matrix part alone sharpens the estimates of \cite{kline}. Proposition~\ref{prop:cor9} gives $\Lambda_n/n^3\to G/3\approx0.2348$, where the 2020 paper had bounds a factor of four apart, and combines the exact identity $\Lambda_n\,v_n^\top\muvec_n=v_n(1)$ with the eigenvector asymptotics to get $v_n^\top\muvec_n\sim3\sqrt6\,n^{-3}/(\pi G)$. This replaces the $n^{-3/2}$ upper bound of Corollary~9 by an asymptotic equivalent of order $n^{-3}$. Proposition~\ref{prop:spectrum} bounds the rest of the spectrum by $O(n^2\log n)$.
+The matrix part alone improves two results of \cite{kline}. Proposition~\ref{prop:cor9} replaces the two-sided bound of Proposition~8 there by the asymptotic $\Lambda_n\sim c\zeta(2)n^3=(G/3)n^3\approx0.2348\,n^3$, and combines the exact identity $\Lambda_n\,v_n^\top\muvec_n=v_n(1)$ with the eigenvector asymptotics to replace the upper bound $(c^{-1/2}+o(1))n^{-3/2}$ of Corollary~9 there by the asymptotic $v_n^\top\muvec_n\sim n^{-3}/(c\zeta(2)^{3/2})=3\sqrt6\,n^{-3}/(\pi G)$. Proposition~\ref{prop:spectrum} bounds the rest of the spectrum by $O(n^2\log n)$.
 
 \subsection*{A cancellation attempt that fails}
 Corollary~9 of \cite{kline} came from the decomposition $\sum_{k\le n}\mu(k)/k=h_n^\top\muvec_n=(v_n^\top h_n)(v_n^\top\muvec_n)+r_n^\top\muvec_n$. The first term is now known to be of order $n^{-3}$, so one asks whether the residual correlation $r_n^\top\muvec_n$ can be estimated another way. Section~\ref{sec:obstruction} shows that the residual can be replaced by its scalar profile with summed error $O(\log^3n/n)$, and that, because the profile has controlled variation, known bounds for the Mertens function control the profile correlation $\sum_{k\le n}\mu(k)U(n/k)/n$. An exact convolution identity then shows that the profile correlation equals $\sum_{k\le n}\mu(k)/k$ itself up to $O(\log n/n)$. The approximation is accurate but circular for this purpose. No new estimate for M\"obius sums is claimed.
@@ -98,6 +102,7 @@ Set
 Empty products equal one. For $0<t<1$, the same definition gives $U(t)=t$. Throughout, $L=\log(2n)$, $\tau$ is the divisor function, and $M(x)=\sum_{k\le x}\mu(k)$, $m(x)=\sum_{k\le x}\mu(k)/k$ are the Mertens and harmonic M\"obius sums.
 
 \section{The conjecture and its scalar profile}
+The following theorem settles the conjecture stated at the end of \cite{kline}, immediately after its Corollary~9, and describes the residual coordinate by coordinate.
 \begin{theorem}\label{thm:main}
 Let $v_n$ be the positive unit eigenvector of $Q_n$ corresponding to its largest eigenvalue, and let $h_n=(1,1/2,\ldots,1/n)^\top$. Then
 \begin{equation}\label{eq:conjecture}
@@ -294,7 +299,7 @@ The upper bound in \eqref{eq:conjecture} follows. The last column of $R$ is $e_n
 \end{proof}
 
 \section{Sharpening the earlier spectral results}\label{sec:spectral}
-These consequences require Lemma~\ref{lem:matrix}, but not the scalar certificate or the full conjecture.
+These consequences require Lemma~\ref{lem:matrix}, but not the scalar certificate or the full conjecture. Proposition~8 of \cite{kline} proves $(c+o(1))n^3\le\Lambda_n\le(\pi^2/18)n^3+O(n^2)$, and its Corollary~9 proves $|v_n^\top\muvec_n|\le(c^{-1/2}+o(1))n^{-3/2}$. The next proposition replaces both bounds by asymptotic equivalents.
 \begin{proposition}[Exact correlation and sharp asymptotic]\label{prop:cor9}
 For every $n\ge1$,
 \begin{equation}\label{eq:exactcor}
@@ -320,7 +325,7 @@ Numerically, the leading constants are approximately
  \frac{3\sqrt6}{\pi G}=3.3204859112,\qquad
  \frac3G=4.2586886415.
 \]
-Thus the $n^{-3/2}$ upper bound of Corollary~9 in \cite{kline} can be replaced by a positive asymptotic equivalent of order $n^{-3}$. Even the finite inequality \eqref{eq:exactcor}, without the conjecture or perturbation analysis, already gives $O(n^{-3})$.
+Thus \eqref{eq:lambda} replaces the two-sided bound of Proposition~8 in \cite{kline}, whose lower constant is this same $c$, by an asymptotic with constant $c\zeta(2)$; and \eqref{eq:sharp} replaces the $n^{-3/2}$ upper bound of Corollary~9 there by a positive asymptotic equivalent of order $n^{-3}$. Even the finite inequality \eqref{eq:exactcor}, without the conjecture or perturbation analysis, already gives $O(n^{-3})$.
 
 \begin{proposition}[Remainder of the spectrum]\label{prop:spectrum}
 Order the eigenvalues as $0<\lambda_{1,n}\le\cdots\le\lambda_{n,n}=\Lambda_n$. Then
@@ -340,7 +345,7 @@ Put $u=h/H$. Since $R(I-uu^\top)=E(I-uu^\top)$,
 All eigenvalues are positive. The gap bound follows from \eqref{eq:lambda}.
 \end{proof}
 \begin{remark}
-These statements sharpen the bounds displayed in \cite{kline}. No comparison with all subsequent literature is asserted, and no asymptotic equivalent for the second eigenvalue is established.
+These statements sharpen Proposition~8 and Corollary~9 of \cite{kline}. No comparison with all subsequent literature is asserted, and no asymptotic equivalent for the second eigenvalue is established.
 \end{remark}
 
 \section{What H\"older transfers to the harmonic M\"obius sum}
